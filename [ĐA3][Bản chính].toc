@@ -1,0 +1,13 @@
+\contentsline {chapter}{\numberline {1}C\IeC {\'a}c kh\IeC {\'a}i ni\IeC {\d \ecircumflex }m c\IeC {\ohorn } b\IeC {\h a}n}{2}
+\contentsline {chapter}{\numberline {2}Ki\IeC {\h \ecircumflex }m so\IeC {\'a}t ph\IeC {\h a}n h\IeC {\`\ocircumflex }i tr\IeC {\d a}ng th\IeC {\'a}i t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{3}
+\contentsline {section}{\numberline {2.1}Nguy\IeC {\^e}n t\IeC {\'\abreve }c t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{3}
+\contentsline {section}{\numberline {2.2}H\IeC {\d o}c thuy\IeC {\'\ecircumflex }t Hamilton-Jacobi-Bellman}{5}
+\contentsline {subsection}{\numberline {2.2.1}\IeC {\DJ }i\IeC {\`\ecircumflex }u ki\IeC {\d \ecircumflex }n \IeC {\dj }\IeC {\h u} cho gi\IeC {\h a}i ph\IeC {\'a}p t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{5}
+\contentsline {subsection}{\numberline {2.2.2}Lu\IeC {\d \acircumflex }n \IeC {\dj }i\IeC {\h \ecircumflex }m h\IeC {\d \ohorn }p l\IeC {\'y} v\IeC {\`\ecircumflex } l\IeC {\'y} thuy\IeC {\'\ecircumflex }t HJB}{7}
+\contentsline {subsection}{\numberline {2.2.3}V\IeC {\'\acircumflex }n \IeC {\dj }\IeC {\`\ecircumflex } \IeC {\dj }i\IeC {\`\ecircumflex }u ch\IeC {\h i}nh LQ}{8}
+\contentsline {subsection}{\numberline {2.2.4}Tr\IeC {\uhorn }\IeC {\`\ohorn }ng h\IeC {\d \ohorn }p b\IeC {\'\acircumflex }t bi\IeC {\'\ecircumflex }n theo th\IeC {\`\ohorn }i gian v\IeC {\'\ohorn }i kh\IeC {\^o}ng gian v\IeC {\^o} h\IeC {\d a}n}{10}
+\contentsline {section}{\numberline {2.3}X\IeC {\'\acircumflex }p x\IeC {\h i} \IeC {\dj }i\IeC {\`\ecircumflex }u khi\IeC {\h \ecircumflex }n t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{13}
+\contentsline {subsection}{\numberline {2.3.1}K\IeC {\'y} hi\IeC {\d \ecircumflex }u}{14}
+\contentsline {subsubsection}{Ph\IeC {\'e}p to\IeC {\'a}n vi ph\IeC {\^a}n}{14}
+\contentsline {subsubsection}{Sorting Powers (Ph\IeC {\^a}n lo\IeC {\d a}i theo l\IeC {\~u}y th\IeC {\`\uhorn }a (?))}{15}
+\contentsline {subsection}{\numberline {2.3.2}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Lukes}{15}

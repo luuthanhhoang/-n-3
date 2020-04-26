@@ -1,0 +1,182 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=3.50cm, right=2.00cm, top=3.50cm, bottom=3.00cm]{geometry}
+\usepackage{scrextend}
+\changefontsizes{13pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\textit{Kiểm soát phản hồi trạng thái tối ưu}}
+\chead{}
+\rhead{\textit{GVHD: PGS.TS ĐỖ ĐỨC THUẬN}}
+\lfoot{\textit{SVTH: HOÀNG THANH LƯU}}
+\cfoot{\thepage}
+\rfoot{\textit{TOÁN TIN K61}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+		\tableofcontents
+	\chapter{Các khái niệm cơ bản}
+	
+	
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter{Kiểm soát phản hồi trạng thái tối ưu}
+	\section{Nguyên tắc tối ưu}
+	Xem xét vấn đề kiểm soát tối ưu sau đây với thời gian cuối cố định $t_b$:\\\\Tìm một điều khiển chấp nhận được $u$: $[t_a, t_b] \to \Omega \subseteq \mathbb{R}^m$ với các ràng buộc \begin{eqnarray}
+		x(t_a) &=& x_a \nonumber \\ \dot{x}(t) &=& f(x(t), u(t), t) \qquad \text{ với } t \in [t_a, t_b] \nonumber \\ x(t_b)&\in& S \subseteq \mathbb{R}^n \nonumber
+	\end{eqnarray} sao cho hàm mục tiêu đạt giá trị nhỏ nhất. $$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t),u(t), t)dt$$
+	Giả sử rằng chúng ta đã tìm thấy giải pháp tối ưu toàn cầu duy nhất với quỹ đạo điều khiển tối ưu $u_0$: $[t_a, t_b] \to \mathbb{R}^m$ và quỹ đạo trạng thái tối ưu tương ứng $x_0$: $[t_a, t_b] \to \mathbb{R}^n$ thỏa mãn $x_0 (t_a) = x_a$ và $x_0(t_b) \in S$.
+	\\\\Bây giờ, chọn một thời gian tùy ý $\tau \in(t_a, t_b)$ và chia đôi vấn đề kiểm soát tối ưu ban đầu thành một vấn đề kiểm soát tối ưu trước đó trong khoảng thời gian $[t_a,\tau]$ và một vấn đề tối ưu thành công trong khoảng thời gian $[\tau, t_b]$.\\\\Vấn đề kiểm soát tối ưu tiền đề là:\\Tìm một điều khiển được chấp nhận $u$: $[t_a, \tau] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ được chuyển từ trạng thái ban đầu $$x(t_a) = x_a$$ đến trạng thái cố định cuối cùng $$x(\tau) = x^0(\tau)$$ tại thời điểm cuối cùng cố định $\tau$ và như vậy có hàm chi phí $$J(u) = \int_{t_a}^{\tau}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\Vấn đề kiểm soát tối ưu thành công là:\\
+	Tìm một điều khiển được chấp nhận $u$: $[\tau, t_b] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ 
+	được chuyển từ trạng thái ban đầu nhất định $$x(\tau) = x^0(\tau)$$ đến trạng thái cuối cùng $$x(t_b) \in S$$ tại thời gian cuối cùng cố định $t_b$ và như vậy hàm chi phí $$J(u) = K(x(t_b)) + \int_{\tau}^{t_b}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\
+	\textbf{Định lý: Nguyên tắc tối ưu}
+	\begin{itemize}
+		\item[\textbf{1)}] Giải pháp tối ưu cho bài toán điều khiển tối ưu thành công trùng khớp với phần thành công của giải pháp tối ưu của bài toán ban đầu.
+		\item[\textbf{2)}] Giải pháp tối ưu cho vấn đề kiểm soát tối ưu tiền đề trùng khớp với phần tiền đề của giải pháp tối ưu cho vấn đề ban đầu. 
+	\end{itemize}
+	\textbf{Chứng minh}
+	\begin{itemize}
+		\item[\textbf{1)}] Mặt khác, kết hợp giải pháp tối ưu của vấn đề kiểm soát tối ưu thành công với phần tiền đề của giải pháp cho vấn đề kiểm soát tối ưu ban đầu sẽ mang lại giải pháp tốt hơn cho vấn đề sau.
+		\item[\textbf{2)}] Mặt khác, kết hợp giải pháp tối ưu của vấn đề kiểm soát tối ưu tiền đề với phần thành công của giải pháp cho vấn đề kiểm soát tối ưu ban đầu sẽ mang lại giải pháp tốt hơn cho vấn đề sau.
+	\end{itemize}
+	Về mặt khái niệm, chúng ta có thể giải quyết vấn đề điều khiển tối ưu thành công cho bất kỳ trạng thái ban đầu tùy ý $x\in \mathbb{R}^n$ tại thời điểm ban đầu $\tau$, thay vì chỉ cho giá trị cố định $x_0(\tau)$. Hơn nữa, chúng ta có thể lặp lại quá trình này trong một thời gian ban đầu tùy ý $t \in [t_a, t_b]$, thay vì chỉ cho giá trị được chọn $\tau$ ban đầu. Chỉ tập trung vào giá trị tối ưu của hàm chi phí trong tất cả các trường hợp này mang lại gọi là hàm chi phí tối ưu $$T(x,t) = \min_{u(.)} \bigg\{K(x(t_b)) + \int_{t}^{t_b}L(x(t),u(t),t)dt \big | x(t) = x \bigg\}$$
+	\textbf{Bổ đề}
+	\begin{enumerate}
+		\item[\textbf{3)}] Giải pháp tối ưu cho vấn đề kiểm soát tối ưu tiền đề với một
+		trạng thái cuối cùng tự do tại thời điểm cuối cùng cố định $\tau$ và với giá trị hàm $$J = T(x(\tau), \tau) + \int_{t_a}^{\tau}L(x(t), u(t), t)dt$$ trùng với phần tiền đề của giải pháp tối ưu cho vấn đề kiểm soát tối ưu ban đầu.
+		\item[\textbf{4)}] Vector chi phí tối ưu $\lambda^0(\tau)$ tương ứng với độ dốc của hàm chi phí tối ưu để đi (cost-to-gofunction), tức là, $$\lambda^0(\tau) = \nabla _xT(x^0(\tau), \tau) \text{ với tất cả } \tau \in [t_a, t_b]$$ với điều kiện $T(x, \tau) $ là liên tục khác biệt đối với $x$ tại $x^0(\tau)$
+	\end{enumerate}
+	\section{Học thuyết Hamilton-Jacobi-Bellman}
+	\subsection{Điều kiện đủ cho giải pháp tối ưu}
+	Xem xét công thức thông thường của một vấn đề kiểm soát tối ưu với trạng thái cuối cùng không xác định tại thời điểm cuối cùng cố định: \\\\ Tìm một điều khiển liên tục từng phần $u : [t_a, t_b] \to \Omega$ sao cho hệ động lực $$\dot{x}(t) = f(x(t), u(t), t)$$ được chuyển từ trạng thái ban đầu $x(t_a) = x_a$ sang trạng thái cuối cùng tùy ý tại thời điểm cuối cùng cố định và sao cho hàm chi phí $$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t), u(t), t)dt$$ đạt min.\\\\
+	Xây dựng hàm Halminton với $\lambda_0^0 = 1$ $$H(x, u \lambda, t) = L(x, u, t) + \lambda^Tf(x, u, t)$$
+	Xét tập hợp $n + 1$ chiều $Z = X \times [a, b] \subseteq \mathbb{R}^n \times \mathbb{R}$, trong đó $X$ là tập con (hy vọng rất lớn) của không gian trạng thái $\mathbb{R}^n$ với bên trong không trống và $[a, b]$ là tập hợp con của trục thời gian chứa ít nhất khoảng $[t_a, t_b]$, như trong Hình 2.1.
+	\begin{figure}[h]
+		\centering
+	  	\includegraphics[scale=.6]{hinh1ct.png}
+		\caption{Ví dụ quỹ đạo trạng thái $\hat{x}(.)$ không rời X}
+	\end{figure}\\\\
+	Chúng ta hãy xem xét các điều khiển được chấp nhận tùy ý $\hat{u}: [t_a, t_b] \to \Omega$ tạo ra các quỹ đạo trạng thái tương ứng $\hat{x}: [t_a, t_b] \to \Omega$ bắt đầu từ $x(t_a) = x_a$. Chúng ta chủ yếu quan tâm đến các quỹ đạo không rời khỏi tập $Z$, tức là thỏa mãn $x(t) \in X$ cho tất cả $t \in [t_a, t_b]$. \\\\
+	Với các giả thuyết sau đây, các điều kiện đủ cho sự tối ưu toàn cục của một giải pháp cho một vấn đề điều khiển tối ưu có thể được nêu trong Định lý Hamilton-Bellman-Jacobi dưới đây.\\\\
+	\textbf{Giải thuyết}
+	\begin{enumerate}
+		\item[\textbf{a)}] Đặt $\hat{u}: [t_a, t_b] \to \Omega$ là một điều khiển được chấp nhận tạo ra quỹ đạo trạng thái $\hat{x}: [t_a, t_b] \to \mathbb{R}^n$ với $\hat{x}(t_a) = x_a$ và $\hat{x}(.) \in Z.$
+		\item [\textbf{b)}] Với tất cả $(x, t) \in Z$ và tất cả $\lambda \in \mathbb{R}^n$, để hàm Hamilton $H(x, \omega, \lambda, t) = L(x, \omega, t) + \lambda^Tf(x, \omega, t)$ có một giá trị nhỏ nhất toàn cục với $\omega \in \Omega$ tại $$\omega = \tilde{u}(x, \lambda, t) \in \Omega $$
+		\item[\textbf{c)}] Đặt $T(x, t): Z \to \mathbb{R}$ là một hàm phân biệt liên tục thỏa mãn phương trình vi phân riêng phần Hamilton-Jacobi-Bellman $$\frac{\partial T(x, t)}{\partial t} + H\bigg[x, \tilde{u}\big(x, \nabla_xT(x, t), t\big), \nabla_xT(x, t), t\bigg] = 0$$ với điều kiện biên $$T(x, t_b) = K(x)$$ với tất cả $(x, t_b) \in Z$.
+	\end{enumerate}
+		\textit{Nhận xét:}
+		\begin{itemize}
+			\item Hàm $\hat{u}$ được gọi là điều khiển H thu nhỏ.
+			\item Khigiar thuyết b được thỏa mãn, hàm Hamilton H được gọi là bình thường. 
+		\end{itemize}
+		\textbf{Định lý Hamilton-Jacobi-Bellman} \\\\ Nếu các giả thuyết a, b, và c được thỏa mãn và nếu nếu quỹ đạo điều khiển $\hat{u}(.)$ và quỹ đạo trạng thái $\hat{x}(.)$ được tạo bởi $\hat{u}(.)$ có liên quan thông qua $$\hat{u}(t) = \tilde{u}\big(\hat{x}(t), \nabla_xT(\hat{x}(t), t), t\big), $$ 
+		thì giải pháp $\hat{u}, \hat{x}$ là tối ưu đối với tất cả các quỹ đạo trạng thái x được tạo bởi một quỹ đạo kiểm soát được chấp nhận $u$, không rời $X$. Hơn nữa, $T(x, t)$ là hàm chi phí tối ưu để đi (cost-to-go function).
+		\\\\
+		\textbf{Bổ đề} \\\\ Nếu $Z = \mathbb{R}^n \times [t_a, t_b]$ thì giải pháp $\hat{u}, \hat{x}$ là tối ưu toàn cục.
+		\subsection{Luận điểm hợp lý về lý thuyết HJB}
+		Chúng ta có các sự kiện sau đây:
+		\begin{enumerate}
+			\item [\textbf{1)}] Nếu hàm Hamilton H bình thường, chúng ta có duy nhất sau
+			H-tối thiểu hóa điều khiển tối ưu: $$u^o(t) = \tilde{u}\big(x^o(t), \lambda^o(t), t\big)$$ 
+			\item [\textbf{2)}] Hàm chi phí tối ưu $T(x, t)$ rõ ràng phải thỏa mãn điều kiện biên $$T(x, t_b) = K(x)$$ vì tại thời điểm cuối cùng $t_b$, giá trị hàm giá chỉ bảo gồm trạng thái cuối cùng $K(x)$.\item[\textbf{3)}] Nguyên lý tối ưu đã chỉ ra rằng chi phí tối ưu $\lambda^o(t)$ tương ứng với độ dốc của hàm chi phí tối ưu, $$\lambda^o(t) = \nabla_xT(x^o(t),t), $$ bất cứ đâu $T(x^o(t), t)$ liên tục khác biệt đối với x tại $x = x^o(t)$.
+			\item [\textbf{4)}] Cùng với một quỹ đạo được chấp nhận tùy ý $u(.)$,$x(.)$, tương ứng
+			hàm chi phí tối ưu $$J(x(t), t) = K(x(t_b)) + \int_{t}^{t_b}L(x(t), u(t), t)dt$$ tiến hóa theo phương trình vi phân sau: $$\frac{dJ}{dt} = \frac{\partial J}{\partial x}\dot{x} + \frac{\partial J}{\partial t} = \lambda^Tf(x, u, t) + \frac{\partial J}{\partial t} = -L(x, u, t)$$ Vì thế, $$\frac{\partial J}{\partial t} = -\lambda^Tf(x, u, t) - L(x, u, t) = -H(x, u, \lambda, t)$$ Điều này tương ứng với phương trình vi phân từng phần của hàm chi phí tối ưu $T(x, t)$, ngoại trừ luật điều khiển tối ưu chưa được áp dụng vào. 
+		\end{enumerate}
+	\subsection{Vấn đề điều chỉnh LQ}
+	\textit{Báo cáo vấn đề điều khiển tối ưu}\\
+	Tìm một luật điều khiển phản hồi trạng thái tối ưu $u$: $\mathbb{R}^n \times [t_a, t_b] \to \mathbb{R}^m$, sao cho hệ động lực tuyến tính $$\dot{x}(t)=A(t)x(t) + B(t)u(t)$$ được chuyển từ trạng thái ban đầu đã cho $x(t_a) = x_a$ sang trạng thái cuối cùng tùy ý tại  thời gian cuối cùng cố định $t_b$ sao cho hàm chi phí bậc hai
+	\begin{eqnarray}
+		J(u) =  \frac{1}{2}x^T(t_b)Fx(t_b) + \int_{t_a}^{t_b}\Big(\frac{1}{2}x^T(t)Q(t)x(t) + x^T(t)N(t)u(t) + \frac{1}{2}u^T(t)R(t)u(t)\Big)dt \nonumber
+	\end{eqnarray} đạt min, trong đó $R(t)$ là ma trận đối xứng xác định dương và $F, Q$ và $\begin{bmatrix}
+		Q(t)&N(t)\\N^T(t)&R(t)
+	\end{bmatrix}$ là đối xứng và nửa xác định dương.\\\\
+	\textit{Phân tích vấn đề}
+	\\Xây dựng hàm Hamilton $$H = \frac{1}{2}x^TQx + x^TNu + \frac{1}{2}u^TRu + \lambda^TAx + \lambda^TBu$$ có điều khiển H-tối thiểu sau đây: $$u = -R^{-1}[B^T\lambda + N^Tx] = -R^{-1}[B^T\nabla_xT + N^Tx]$$ Do đó, phương trình vi phân từng phần Hamilton-Jacobi-Bellman là
+	\begin{eqnarray}
+		0 &=& \frac{\partial T}{\partial t} + H(x, \tilde{u}(x, \nabla_xT,t),\nabla_xT,t) \nonumber \\ &=& \frac{\partial T}{\partial t} + \frac{1}{2}\Big(x^TQx-x^TNR^{-1}N^Tx-\nabla_xT^TBR^{-1}B^T\nabla_xT \nonumber \\ &+& \nabla_xT^T[A-BR^{-1}N^T]x+x^T[A-BR^{-1}N^T]^T\nabla_xT\Big) \nonumber
+	\end{eqnarray} với điều kiện biên $$T(x, t_b) = \frac{1}{2}x^TFx.$$
+	Rõ ràng, một giả định cho hàm chi phí tối ưu $T(x, t)$ là bậc hai trong $x$ nên hoạt động. Điều này dẫn đến một phương trình vi phân từng phần trong đó tất cả các số hạng là bậc hai theo x.\textit{\textbf{(...)}} $$T(x, t) = \frac{1}{2}x^TK(t)x$$ dẫn đến $$\nabla_xT(x, t) = K(t)x \text{ và } \frac{\partial T(x, t)}{\partial t} = \frac{1}{2}x^T \dot{K}(t)x$$ Dạng cuối cùng sau đây của phương trình vi phân từng phần Hamilton-Jacobi-Bellman thu được:
+	\begin{eqnarray}
+		\frac{1}{2}x^T \Big(\dot{K}(t) + Q - NR^{-1}N^T - K(t)BR^{-1}B^TK(t) \nonumber \\ + K(t)[A-BR^{-1}N^T] + [A - BR^{-1}N^T]^TK(t)\Big)x = 0 \nonumber\\
+		T(x, t_b) = \frac{1}{2}x^TFx \nonumber
+	\end{eqnarray}
+	Do đó, chúng tôi nhận được luật kiểm soát phản hồi trạng thái tối ưu sau: $$u(t) = -R^{-1}(t)[B^T(t)K(t) + N^T(t)]x(t)$$
+	trong đó ma trận đối xứng  và (nửa) xác định dương phải được tính toán trước bằng cách giải phương trình vi phân Riccati ma trận
+\begin{eqnarray}
+	\dot{K}(t) &=& -[A(t) - B(t)R^{-1}(t)N^T(t)]^TK(t) - K(t)[A(t) - B(t)R^{-1}(t)N^T(t)] \nonumber \\ &&-K(t)B(t)R^{-1}(t)B^T(t)K(t) - Q(t) + N(t)R^{-1}(t)N^T(t) \nonumber
+\end{eqnarray} với điều kiện biên $$K(t_b) = F$$
+\subsection{Trường hợp bất biến theo thời gian với không gian vô hạn}
+Trong phần này, các vấn đề điểu khiển tối ưu bất biến theo thời gian với vector điều khiển không giới hạn trạng thái $u(t) \in \mathbb{R}^m$, trạng thái tự do cuối cùng $x(t_b)$ tại thời điểm cuối cùng vô hạn $t_b = \infty$ được xem xét.\\\\Phát biểu chung nhất của vấn đề kiểm soát tối ưu này là:\\\\ 
+Tìm một điều khiển liên tục từng phần $u: [0, \infty) \to \mathbb{R}^m$, sao cho hệ thống động hoàn toàn có thể điều khiển $$\dot{x}(t) = f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu nhất định $$x(0) = x_a $$ đến trạng thái cuối cùng tùy ý $x(\infty) \in \mathbb{R}^n$ tại thời điểm cuối cùng vô hạn và hàm chi phí $$J(u) = \int_{0}^{\infty}L(x(t), u(t))dt$$ là nhỏ nhất và đạt được một giá trị tối ưu hữu hạn.	\\\\ Để có một vấn đề được đặt ra, các biến của vấn đề nên được chọn theo cách sao cho trạng thái cân bằng tĩnh cố định ở $x = 0$ và có thể đạt được bằng điều khiển biến mất không đối xứng $u(t) \to 0$ như $t \to \infty$. Do đó, $f(0,0) = 0$ là bắt buộc. Hơn nữa, chọn tích phân $L$ của hàm chi phí với $L(0, 0) = 0$ và sao cho nó lồi hoàn toàn trong cả $x$ và $u$ và sao cho $L (x, u)$ tăng mà không bị ràng buộc, với tất cả $(x, u)$ trong đó $x$, hoặc $u$, hoặc cả $x$ và $u$ đi đến vô cùng theo bất kỳ hướng nào trong không gian trạng thái $\mathbb{R}^n$ hoặc không gian điều khiển $\mathbb{R}^m$, tương ứng. Tất nhiên, chúng ta giả sử rằng cả $f$ và $L$ ít nhất một lần liên tục khác nhau đối với $x$ và $u$. \\\\
+Rõ ràng, trong trường hợp bất biến theo thời gian với không gian vô hạn, hàm chi phí tối ưu $T(x, t)$ là bất biến theo thời gian, tức là, $$T(x, t) \equiv T(x) ,$$ bởi vì giải pháp tối ưu là thay đổi bất biến (?). Không quan trọng hệ thống bắt đầu với trạng thái ban đầu $x_a$ tại thời điểm ban đầu 0 hay với cùng trạng thái ban đầu $x_a$ tại một số thời điểm bắt đầu $t_a \neq 0.$ \\\\ Do đó, phương trình vi phân từng phần Hamilton-Jacobi-Bellman $$\frac{\partial T(x, t)}{\partial t} + H\Big[x, \tilde{u}\Big(x, \nabla_xT(x,t),t\Big), \nabla_xT(x, t), t\Big] = 0$$
+suy biến thành phương trình vi phân từng phần $$H\big[x, \tilde{u}\big(x, \nabla_xT(x)\big), \nabla_xT(x)\big] = 0$$ và mất điều kiện biên cũ $T(x, t_b) = K(x)$.\\\\ Trong trường hợp đặc biệt của hệ động lực bậc 1 $(n = 1)$, đây là một phương trình vi phân thông thường có thể được tích hợp bằng điều kiện biên $J(0) = 0$.
+\\\\ Đối với các hệ thống động có bậc cao hơn $(n \geq 2)$, có sẵn các kỹ thuật giải quyết vấn đề thay thế sau:
+\begin{itemize}
+	\item[\textbf{a)}] Chọn một hàm xác định dương $K(x)$ tùy ý với $K (0) = 0$ thỏa mãn điều kiện tăng thông thường. Tích hợp phương trình vi phân từng phần Hamilton-Jacobi-Bellman trên  $\mathbb{R}^n \times (-\infty, t_b]$ bằng cách sử dụng điều kiện biên $T(x, t_b) = K (x)$. Giải pháp $T(x, t)$ hội tụ theo thời gian mong muốn chi phí tối ưu để thực hiện hàm $T(x)$ là $t \to \infty$, $$T(x) = \lim_{t\to -\infty}T(x, t).$$
+	\item[\textbf{b)}] Giải hai phương trình
+	\begin{eqnarray}
+		H(x, u, \lambda) &=& 0 \nonumber \\ \nabla_uH(x, u, \lambda) &=& 0 \nonumber
+	\end{eqnarray} để tìm ra luật kiểm soát phản hồi trạng thái tối ưu mong muốn $u^o(x)$ mà không tính toán hàm chi phí tối ưu $T (x)$. Vì cả hai phương trình này đều tuyến tính trong giá trị $\lambda$, nên có một cơ hội tốt mà có thể được loại bỏ mà không cần tính toán $\lambda = \nabla_xT(x)$ một cách rõ ràng. Điều này dẫn đến một hình thức ngầm định của luật kiểm soát phản hồi trạng thái tối ưu.
+\end{itemize}
+\textbf{Ví dụ}\\\\ Giả sử rằng chúng ta đã giải quyết vấn đề điều chỉnh LQ sau đây cho một hệ thống động không ổn định: \begin{eqnarray}
+	\dot{x}(t) &=& ax(t)+bu(t) \text{ với } a > 0, b \neq 0 \nonumber \\ x(0) &=& x_a \nonumber\\ J(u) &=& \frac{1}{2}\int_{0}^{\infty}\big(qx^2(t) + u^2(t)\big)dt \text{ với } q > 0 \nonumber
+\end{eqnarray}
+Kết quả là bộ điều khiển phản hồi trạng thái tuyến tính $$u(t) = -gx(t)$$ với $$g = bk = \frac{a + a\sqrt{1+\frac{b^2q}{a^2}}}{b}$$ Bây giờ, chúng ta muốn thay thế bộ điều khiển tuyến tính này bằng một bộ điều khiển phi tuyến cho các giá trị lớn của $|x|$, tức là, trong đó cho thấy một hành vi bão hòa phù hợp, nhưng mà vẫn giữ được "độ cứng" của bộ điều khiển LQ cho các tín hiệu nhỏ $x$. Lưu ý rằng, do sự bất ổn của nhà máy, điều khiển không được thấm vào một giá trị tối đa liên tục cho sự kiểm soát. Thay vào đó, chỉ có thể thấm vào một bộ điều khiển tuyến tính "mềm hơn" của dạng $u = - g_{\infty} x$ cho  $|x|$ lớn với $g _{\infty} > a/b$. \\\\ Để đạt được mục tiêu này, hàm chi phí được sửa đổi như sau: $$J(u) = \frac{1}{2}\int_{0}^{\infty} \big(qx^2(t) + u^2(t) + \beta u^4(t)\big)dt \text{ với } \beta > 0.$$
+Theo \textbf{b}, ta có 
+\begin{eqnarray}
+	H(x, u, \lambda) &=& \frac{q}{2}x^2 + \frac{1}{2}u^2 + \frac{\beta}{2}u^4 + \lambda ax + \lambda bu = 0 \nonumber \\ \frac{\partial H}{\partial u} &=& u + 2\beta u^3 + \lambda b = 0. \nonumber
+\end{eqnarray} Loại bỏ $\lambda$ mang lại luật kiểm soát phản hồi trạng thái tối ưu: $$3\beta u^4 + \frac{2\beta a}{b}xu^3 + u^2 + \frac{2a}{b}xu - qx^2 = 0$$ Điều khiển phản hồi trạng thái tối ưu $u(x)$ thu được bằng cách giải phương trình này: $$u(x) = \arg \Bigg\{3\beta u^4 + \frac{4\beta a}{b}xu^3 + u^2 + \frac{2a}{b}xu - qx^2 = 0 \Bigg| \begin{matrix}
+u<-\frac{a}{b}x \quad \text{ với } x > 0\\ u = 0 \quad \text{ với } x = 0 \\ u > -\frac{a}{b}x \text{ với } x < 0
+\end{matrix}\Bigg\}$$ Đặc tính tín hiệu nhỏ giống với đặc tính của bộ điều chỉnh LQ vì các số hạng thứ tư $u^4$ và $xu^3$ không đáng kể. Ngược lại, đối với đặc tính tín hiệu lớn, các thuật ngữ bậc bốn chiếm ưu thế và các thuật ngữ bậc hai $u^2$, $xu$ và $x^2$ là không đáng kể. Do đó, đặc tính tín hiệu lớn là $$u \approx \frac{4a}{3b}x$$ Trong hình 2.2, luật điều khiển tối ưu phi tuyến được mô tả cho ví dụ trong đó $a = 1, b = 1, q = 8$ và $\beta = 1$ với bộ điều chỉnh LQ $g = 4$ và mức tăng tín hiệu lớn $g_{\infty} = - \frac{4}{3}$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=.8]{hinh2ct.png}
+	\caption{Luật điều khiển phi tuyến tối ưu}
+\end{figure}\\\\
+Các đầu đọc nghiêng (the inclined reader is invited) được mời để xác minh rằng thay thế $\beta u^4$ trong hàm chi phí $\beta u^{2k}$ với $k \geq 2$ dẫn đến kết quả là mức tăng trưởng lớn $$u\approx -\frac{2ka}{(2k-1)b}x$$
+
+\section{Xấp xỉ điều khiển tối ưu}
+Trong hầu hết các trường hợp, không tìm thấy giải pháp phân tích nào của phương trình vi phân từng phần Hamilton-Jacobi-Bellman. Hơn nữa, việc giải quyết nó bằng số có thể cực kỳ cồng kềnh.\\\\
+Do đó, một phương pháp được trình bày ở đây cho phép tìm các kết quả gần đúng cho luật kiểm soát phản hồi trạng thái cho một vấn đề kiểm soát tối ưu bất biến theo thời gian với không gian vô hạn.\\\\ Chúng ta hãy xem xét một vấn đề kiểm soát tối ưu bất biến theo thời gian với một không gian vô hạn cho một hệ động lực phi tuyến với hàm chi phí không bậc hai, được cấu trúc như sau: \\\\ Tìm một luật điều khiển phản hồi trạng thái tối ưu bất biến theo thời gian $u$: $R^n \to R^m$, sao cho hệ thống động $$\dot{x}(t) = F(x(t), u(t)) = Ax(t) + Bu(t) + f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu $x(0) = x_a$ sang trạng thái cân bằng x = 0 tại thời điểm cuối cùng vô hạn sao cho hàm chi phí \begin{eqnarray}
+	J(u) &=& \int_{0}^{\infty}L(x(t), u(t))dt \nonumber \\
+	&=& \int_{0}^{\infty}\Big(\frac{1}{2}x^T(t)Qx(t) + x^T(t)Nu(t) + \frac{1}{2}u^T(t)Ru(t) + \ell(x(t), u(t)) \Big)dt \nonumber 
+\end{eqnarray} đạt giá trị nhỏ nhất.
+Trong vấn đề này, người ta cho rằng các điều kiện sau được thỏa mãn: \begin{itemize}
+	\item $[A, B]$ cố định
+	\item R > 0
+	\item $Q = C^TC \geq$ 0
+	\item $[A, C]$ có thể tìm được
+	\item $\begin{bmatrix}
+	Q&N\\N^T&R
+	\end{bmatrix} \geq 0$
+	\item $f(x, u)$ chỉ chứa các bậc hai hoặc cao hơn trong $x$ và/hoặc $u$
+	\item $\ell(x, u)$ chỉ chứa các bậc hai hoặc cao hơn trong $x$ và/hoặc $u$.
+\end{itemize}
+\subsection{Ký hiệu}
+\subsubsection{Phép toán vi phân} Đối với ma trận Jacobi của các đạo hàm riêng của hàm có giá trị $n$-vectơ $f$ đối với $m$-vector $u$, ký hiệu sau được sử dụng: $$f_u = \frac{\partial f}{\partial u} = \begin{bmatrix}
+\frac{\partial f_1}{\partial u_1} & \cdots & \frac{\partial f_1}{\partial u_m}\\ \vdots && \vdots \\ \frac{\partial f_n}{\partial u_1} &\cdots& \frac{\partial f_n}{\partial u_m}
+\end{bmatrix}$$
+Chú ý rằng kết quả của một vector hàng là đạo hàm vô hướng của hàm $f$.
+\subsubsection{Sorting Powers (Phân loại theo lũy thừa (?))} Trong các hàm đa thức, chúng ta tổng hợp các thuật ngữ có cùng công suất (the same power) như sau: \begin{eqnarray}
+	f(x, u) &=& f^{(2)}(x, u) + f^{(3)}(x, u) + f^{(4)}(x, u)\cdots \nonumber \\
+	\ell(x, u) &=& \ell^{(3)}(x, u) + \ell^{(4)}(x, u) + \ell^{(5)}(x, u) + \cdots \nonumber \\
+	T(x) &=& T^{(2)}(x) + T^{(3)}(x) + T^{(4)}(x) + \cdots \nonumber \\ u^o(x) &=& u^{o(1)}(x) + u^{o(2)}(x) + u^{o(3)}(x) + \cdots \nonumber .
+\end{eqnarray}
+Ví dụ: Trong trường hợp đơn giản nhất của hàm vô hướng với các đối số vô hướng $x$ và $u$, hàm $\ell^{(3)}(x, u)$ có dạng tổng quát sau: $$\ell^{(3)}(x, u) = \alpha x^3 + \beta x^2u + \gamma xu^2 + \delta u^3$$
+Đối với các đạo hàm của hàm $f$ và $\ell$, các lũy thừa được sắp xếp theo cách tương tự, ví dụ: \begin{eqnarray}
+	f_u(x, u) &=& f_u^{(1)}(x, u) + f_u^{(2)}(x, u) + f_u^{(3)}(x, u) + \cdots \nonumber \\ \ell_u(x, u) &=& \ell_u^{(2)}(x, u) + \ell_u^{(3)}(x, u) + \ell_u^{(4)}(x, u) + \cdots \nonumber
+\end{eqnarray}
+Lưu ý thực tế sau đây cho đạo hàm của hàm đối với đối số có giá trị vô hướng hoặc giá trị véc tơ: $$\ell_u^{(k)}(x, u) = \frac{\partial\ell^{(k+1)}(x, u)}{\partial u}.$$
+Trong ví dụ trước, chúng ta nhận được
+$$\ell_u^{(2)}(x, u) = \frac{\partial\ell^{(3)}(x, u)}{\partial u} = \beta x^2 + 2\gamma xu + 3\delta u^2.$$
+Nói chung, loại ký hiệu này sẽ được sử dụng trong phần tiếp theo. 
+\subsection{Phương pháp Lukes}
+
+
+\end{document}
