@@ -174,9 +174,27 @@ Ví dụ: Trong trường hợp đơn giản nhất của hàm vô hướng vớ
 \end{eqnarray}
 Lưu ý thực tế sau đây cho đạo hàm của hàm đối với đối số có giá trị vô hướng hoặc giá trị véc tơ: $$\ell_u^{(k)}(x, u) = \frac{\partial\ell^{(k+1)}(x, u)}{\partial u}.$$
 Trong ví dụ trước, chúng ta nhận được
-$$\ell_u^{(2)}(x, u) = \frac{\partial\ell^{(3)}(x, u)}{\partial u} = \beta x^2 + 2\gamma xu + 3\delta u^2.$$
+$$\ell_u^{(2)}(x, u) = \frac{\partial\ell^{(3)}(x, u)}{\partial u} = \beta x^2 + 2\gamma xu + 3\delta u^2.$$ Từ bây giờ, chúng ta viết $$T_x(x) = T_x^{[2]}(x) + T_x^{[3]}(x) + T_x^{[4]}(x) + \cdots$$ thay vì $T_x^{(1)}(x) + T_x^{(2)}(x) + T_x^{(3)}(x) + \cdots$
 Nói chung, loại ký hiệu này sẽ được sử dụng trong phần tiếp theo. 
-\subsection{Phương pháp Lukes}
-
-
-\end{document}
+\subsection{Phương pháp Lukes} Trong bước xấp xỉ đầu tiên, điều khiển tuyến tính $u^o(1)$ được xác định bằng cách giải bài toán điều chỉnh LQ cho hệ động lực tuyến tính và cho phần thuần phương trình bậc 2 của hàm chi phí. \\\\ Trong mỗi bước xấp xỉ bổ sung của phương pháp đệ quy Lukes, một số lũy thừa bổ sung được thêm vào luật phản hồi $u(x)$, trong khi một số lũy thừa bổ sung của xấp xỉ $f$ và $A$ được xử lý.\\\\ Như đã trình bày trong 2.2.4, hai phương trình sau phải được giải gần đúng trong mỗi bước xấp xỉ: \begin{eqnarray}
+	H &=& T_x(x)F(x, u) + L(x, u) = 0\\ H_u &=& T_x(x)F_u(x, u) + L_u(x, u)
+\end{eqnarray} Trong bài toán sắp tới, chúng ta có các phương trình sau: \begin{eqnarray}
+	H &=&T_x(x)[Ax+Bu+f(x, u)] + \frac{1}{2}x^TQx + x^TNu \nonumber\\ && + \frac{1}{2}u^TRu + \ell(x, u) = 0\\ H_u &=& T_x(x)(B + f_u(x, u)) + x^TN + u^TR + \ell_u(x, u) = 0
+\end{eqnarray}
+Giải phương trình (2.4) với $u^o$: \begin{equation}
+	u^{oT} = -[T_x(x)(B + f_u(x, u^o)) + x^TN + \ell_u(x, u^o)]R^{-1}
+\end{equation}
+\subsubsection{1$^\text{st}$ Approximation: LQ-Regulator} \begin{eqnarray}
+	\dot{x}(t) &=& Ax + Bu \nonumber \\
+	J(u) &=& \int_{0}^{\infty}\bigg(\frac{1}{2}x^TQx + x^TNu + \frac{1}{2}u^TRu\bigg)dt \nonumber \\ u^{o(1)} &=& Gx \text{ với } G = -R^{-1}(B^TK + N^T), \nonumber
+\end{eqnarray} trong đó $K$ là nghiệm duy nhất duy nhất của phương trình Riccati $$[A-BR^{-1}N^T]^TK + K[A-BR^{-1}N^T] - KBR^{-1}B^TK + Q - NR^{-1}N^T = 0$$ Kết quả của hệ điều khiển tuyến tính được mô tả bởi phương trình vi phân $$\dot{x}(t) = [A + BG]x(t) = A^ox(t)$$ và có giá trị hàm chi phí $$T^{(2)}(x) = \frac{1}{2}x^TKx \text{ với } T_x^{[2]}(x) = x^TK.$$
+\subsubsection{2$^\text{nd}$ Approximation}
+\begin{eqnarray}
+	u^o(x) &=& u^{o(1)}(x) + u^{0(2)}(x)\nonumber \\ T_x(x) &=& T_x^{[2]}(x) + T_x^{[3]}(x) \nonumber
+\end{eqnarray}
+\begin{itemize}
+	\item[\textbf{a)}] Xác định $T_x^{[3]}(x)$: \\ Sử dụng (2.3): \begin{eqnarray}
+		0 &=& (T_x^{[2]} + T_x^{[3]})[Ax + B(u^{o(1)} + u^{o(2)}) + f(x, u^{o(1)} + u^{o(2)})] \nonumber \\ && + \frac{1}{2}x^TQx + x^TN(u^{o(1)} + u^{o(2)}) + \frac{1}{2}(u^{o(1)} + u^{o(2)})^TR(u^{o(1)} + u^{o(2)}) \nonumber \\ && + \ell(x, u^{o(1)} + u^{o(2)}) \nonumber
+	\end{eqnarray} Thuật ngữ khối: 
+\end{itemize}
+\end{document} 
