@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2019.5.10)  27 APR 2020 21:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2019.5.10)  29 APR 2020 09:33
 entering extended mode
 **"./[ĐA3][Bản chính].tex"
 ("[ĐA3][Bản chính].tex"
@@ -742,7 +742,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 179--179
 
  []
 
-[15] [16] [17] ("[ĐA3][Bản chính].aux")
+[15] [16] [17] [18] ("[ĐA3][Bản chính].aux")
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -751,7 +751,7 @@ LaTeX Font Warning: Size substitutions with differences
 Here is how much of TeX's memory you used:
  4436 strings out of 492970
  62391 string characters out of 3126594
- 158235 words of memory out of 3000000
+ 159232 words of memory out of 3000000
  8215 multiletter control sequences out of 15000+200000
  25424 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -773,9 +773,9 @@ ocal/Programs/MiKTeX 2.9/fonts/type1/vntex/vnr/vnbx9.pfb><C:/Users/hoang/AppDat
 a/Local/Programs/MiKTeX 2.9/fonts/type1/vntex/vnr/vnbxti10.pfb><C:/Users/hoang/
 AppData/Local/Programs/MiKTeX 2.9/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/hoa
 ng/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/vntex/vnr/vnti12.pfb>
-Output written on "[ĐA3][Bản chính].pdf" (17 pages, 240038 bytes).
+Output written on "[ĐA3][Bản chính].pdf" (18 pages, 244311 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
+ 125 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

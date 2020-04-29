@@ -12,7 +12,7 @@
 \pagestyle{fancy}
 \lhead{\textit{Kiểm soát phản hồi trạng thái tối ưu}}
 \chead{}
-\rhead{\textit{GVHD: PGS.TS ĐỖ ĐỨC THUẬN}}
+\rhead{\textit{GVHD: PGS ĐỖ ĐỨC THUẬN}}
 \lfoot{\textit{SVTH: HOÀNG THANH LƯU}}
 \cfoot{\thepage}
 \rfoot{\textit{TOÁN TIN K61}}
@@ -195,6 +195,31 @@ Giải phương trình (2.4) với $u^o$: \begin{equation}
 \begin{itemize}
 	\item[\textbf{a)}] Xác định $T_x^{[3]}(x)$: \\ Sử dụng (2.3): \begin{eqnarray}
 		0 &=& (T_x^{[2]} + T_x^{[3]})[Ax + B(u^{o(1)} + u^{o(2)}) + f(x, u^{o(1)} + u^{o(2)})] \nonumber \\ && + \frac{1}{2}x^TQx + x^TN(u^{o(1)} + u^{o(2)}) + \frac{1}{2}(u^{o(1)} + u^{o(2)})^TR(u^{o(1)} + u^{o(2)}) \nonumber \\ && + \ell(x, u^{o(1)} + u^{o(2)}) \nonumber
-	\end{eqnarray} Thuật ngữ khối: 
+	\end{eqnarray} Thuật ngữ khối: \begin{eqnarray}
+		0 &=& T_x^{[3]}[Ax+Bu^{o(1)}] + T_x^{[2]}[Bu^{o(2)}+f^{(2)}(x, u^{o(1)})] \nonumber \\ && + \text{ } x^TNu^{o(2)} + \frac{1}{2}u^{o(1)^T}Ru^{o(2)} + \frac{1}{2}u^{o(2)^T}Ru^{o(1)} + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ &=& T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ && + \text{ } [T_x^{[2]}B + x^TN + u^{o(1)^T}R]_{=0}u^{o(2)} \nonumber
+	\end{eqnarray}
+	 Vì vậy, phương trình dành cho $T_x^{(3)}(x)$ là \begin{equation}
+	 	0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}).
+	 \end{equation}
+\item[\textbf{b)}] Xác định $u^{o(2)}(x)$:\\
+Sử dụng (2.5): \begin{eqnarray}
+	(u^{o(1)} + u^{o(2)})^T = &-& \Big[(T_x^{[2]} + T_x^{[3]})(B+f_u(x, u^{o(1)} + u^{o(2)}) \nonumber \\ && + \text{ } x^TN + \ell_u(x, u^{o(1)} + u^{o(2)})\Big]R^{-1} \nonumber
+\end{eqnarray}
+Dạng bậc hai: \begin{equation}
+	u^{o(2)^T} = - \Big[T_x^{[3]}B + T_x^{[2]}f_u^{(1)}(x, u^{o(1)}) + \ell_u^{(2)}(x, u^{o(1)})\Big]R^{-1}
+\end{equation}
 \end{itemize}
+Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$ 
+
+\subsubsection{$3^{\text{rd}}$ Approximation}
+\begin{eqnarray}
+	u^*(x) &=& u^{o(1)}(x) + u^{o(2)}(x) \nonumber \\ u^o(x) &=&u^*(x) + u^{o(3)}(x) \nonumber \\ T_x(x) &=& T_x^{[2]}(x) + T_x^{[3]}(x) + T_x^{[4]}(x) \nonumber
+\end{eqnarray}
+\begin{itemize}
+	\item[\textbf{a)}] Xác định $T_x^{[4]}(x)$: \begin{eqnarray}
+		0 &=& T_x^{[4]}A^ox + T_x^{[3]}Bu^{o(2)} \nonumber \\ && + \text{ }T_x^{[3]}f^{(2)}(x, u^*) + T_x^{[2]}f^{(3)}(x, u^*) \nonumber \\ && \text{ } + \frac{1}{2}u^{o(2)^T}Ru^{o(2)} + \ell^{(4)}(x, u^*) \nonumber
+	\end{eqnarray}
+	\item[\textbf{b)}] Xác định $u^{o(3)}$: $$u^{o(3)^T} = -[T_x^{[4]}B + T_x^{[3]}f_u^{(1)}(x, u^*) + T_x^{[2]}f_u^{[2]}(x, u^*) + \ell_u^{(3)}(x, u^*)]R^{-1}$$
+\end{itemize}
+\subsubsection{\textit{k}$^{\text{th}}$ Approximation (\textit{k} $\geq$ 4)}
 \end{document} 

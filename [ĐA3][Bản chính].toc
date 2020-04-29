@@ -13,3 +13,5 @@
 \contentsline {subsection}{\numberline {2.3.2}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Lukes}{15}
 \contentsline {subsubsection}{1$^\text {st}$ Approximation: LQ-Regulator}{16}
 \contentsline {subsubsection}{2$^\text {nd}$ Approximation}{16}
+\contentsline {subsubsection}{$3^{\text {rd}}$ Approximation}{17}
+\contentsline {subsubsection}{\textit {k}$^{\text {th}}$ Approximation (\textit {k} $\geq $ 4)}{18}
