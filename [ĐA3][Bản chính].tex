@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{makeidx}
 \usepackage{graphicx}
+\usepackage{fancybox}
 \usepackage[left=3.50cm, right=2.00cm, top=3.50cm, bottom=3.00cm]{geometry}
 \usepackage{scrextend}
 \changefontsizes{13pt}
@@ -12,26 +13,124 @@
 \pagestyle{fancy}
 \lhead{\textit{Kiểm soát phản hồi trạng thái tối ưu}}
 \chead{}
-\rhead{\textit{GVHD: PGS ĐỖ ĐỨC THUẬN}}
-\lfoot{\textit{SVTH: HOÀNG THANH LƯU}}
+\rhead{\textit{GVHD: PGS Đỗ Đức Thuận}}
+\lfoot{\textit{SVTH: Hoàng Thanh Lưu}}
 \cfoot{\thepage}
-\rfoot{\textit{TOÁN TIN K61}}
+\rfoot{\textit{Toán Tin K61}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \begin{document}
+	\thisfancypage{%đóng khung trang này
+	\setlength{\fboxsep}{0pt}% 8pt là độ dày của đường viền
+	\fbox}{} % phần nội dung sau là tương tự như đã làm
+\thispagestyle{empty}
+\begin{center}
+	\vspace*{0.4cm}
+	\fontsize{14}{12}
+	\textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI}\\
+	\textbf{VIỆN TOÁN ỨNG DỤNG VÀ TIN HỌC}\\
+	\textbf{------ o0o ------}
+\end{center}
+\vspace*{0.8cm}
+\begin{center}
+	\includegraphics[scale=.5]{bk.png}
+\end{center}
+\vspace*{0.8cm}
+\begin{center}
+	\fontsize{20}{18}
+	\textbf{KIỂM SOÁT PHẢN HỒI TRẠNG THÁI TỐI ƯU}\\
+	\vspace*{0.8cm}
+	\fontsize{18}{16}
+	\textbf{ĐỒ ÁN III}
+\end{center}
+\vspace*{0.7cm}
+\begin{center}
+	\fontsize{14}{16}
+	\begin{tabular}{ll}
+		
+		\textbf{Giảng viên hướng dẫn:} & \textbf{PGS.TS Đỗ Đức Thuận} \\ 
+		\textbf{Sinh viên thực hiện:} & \textbf{Hoàng Thanh Lưu} \\ 
+		\textbf{Lớp:}  & \textbf{Toán Tin K61} \\ 
+	\end{tabular} \\
+	\vspace*{2.5cm}
+	\fontsize{14}{16}
+	\textbf{Hà Nội - 6/2020}
+\end{center}
+	\newpage
+	\thispagestyle{empty}
+	\begin{center}
+		\fontsize{14}{16}	
+		\textbf{NHẬN XÉT CỦA GIẢNG VIÊN HƯỚNG DẪN}
+		\vspace*{0.7cm}
+	\end{center}
+	\textbf{1. Mục đích và nội dung của đồ án.}\\\\
+	.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\\\
+	\textbf{2. Kết quả đạt được.}\\\\
+	.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\\\
+	\textbf{3. Ý thức làm việc của sinh viên.}\\\\
+	.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\.............................................................................................................................\\\\
+	
+	\begin{flushright}
+		\begin{tabular}{cccc}
+			&   \textit{ Hà Nội ngày $\quad$ tháng  6 năm 2020} && \\ 
+			&    Giảng viên hướng dẫn && \\ 
+			&    \textit{(Ký và ghi rõ họ tên)} && \\ 
+		\end{tabular} 
+	\end{flushright}
 		\tableofcontents
 	\chapter{Các khái niệm cơ bản}
 	
+	\chapter{Một số vấn đề về  bài toán điều khiển tối ưu}
+	\section{Nguyên lý cực đại Pontryagin}
+	\subsubsection{Xét hệ điều khiển} \begin{equation}
+		\dot{x} = f(x, u), f: \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}^n, f = (f_1, ..., f_n)^T, f_i: \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}
+	\end{equation}
+	Một số lưu ý
+	\begin{itemize}
+		\item $x(0) = 0 \in \mathbb{R}^n$ \\ $x(t_1) = x_1$ cho trước thì bài toán là bài toán cố định \\ $x(t_1) = x_1$ không cho trước thì bài toán là bài toán tự do
+		\item $x \in$ $\Delta$ là lớp điều khiển chấp nhận được, $x(t) \in \Omega \subset \mathbb{R}^m$
+		\item Hàm tối ưu \begin{equation}
+			C(x) = \int_{0}^{t_1}f_0(x(t), u(t))dt \to \min \nonumber
+		\end{equation}
+	\end{itemize}
+	\subsubsection{Xây dựng hàm Hamilton}
+	\begin{equation}
+		H(x, u, \varphi) = \varphi_0f_0(x, u) + \varphi_1f_1(x, u) + \cdots + \varphi_nf_n(x, u)
+	\end{equation} trong đó $\varphi_0, \varphi_1, ..., \varphi_n \in \mathbb{R}$
+	\subsubsection{Viết lại hàm Haminton}
+	\begin{eqnarray}
+		H(x, u, \varphi) = \varphi_0f_0(x, u) + \langle \varphi, f \rangle = \varphi_0f_0(x, u) + \varphi^Tf 
+	\end{eqnarray} trong đó $\varphi = (\varphi_1,...,\varphi_n)^T$.
 	
-	
-	
+	\subsubsection{Định lý PMP} Giả sử $u^*$ là điều khiển tối ưu tương ứng với quỹ đạo trạng thái tối ưu $x^*$. Khi đó tồn tại hàm $\varphi^*(t) = \big(\varphi_1^*(t),..., \varphi_n^*(t)\big)^T$ và hệ số $\varphi_0^*$ thỏa mãn:
+	\begin{itemize}
+		\item[\textbf{(a)}] $\dot{x}^* = f(x^*, u^*)$
+		\item[\textbf{(b)}] $\dot{\varphi}_i^* = \dfrac{-\partial H}{\partial x_i} = -\varphi_0^*\dfrac{\partial f_0}{\partial x_i} - \varphi_1^*\dfrac{\partial f_1}{\partial x_i} - ... - \varphi_n^*\dfrac{\partial f_n}{\partial x_i}$
+		\item[\textbf{(c)}]$\varphi_0^*$ là không dương và $$H(x^*, u^*, \varphi^*) = \max_{v\in \Omega}H(x^*, v, \varphi^*) = M(x^*, \varphi^*)$$
+	\end{itemize} Hơn nữa $M(x^*(t), \varphi^*(t))$ là hằng số với $0 \leq t \leq t^*$. \subsubsection{Chú ý} Nếu các hàm $f_0, f$ khả vi liên tục thì không mất tổng quát ta có thể giả sử $\varphi_0^* = -1$. Đối với bài toán tự do ($x^*(t^*) = x_1$ không cho trước) thì ta có thêm điều kiện hoành $\varphi^*(t^*) = 0$.
+
+\section{Nguyên lý quy hoạch động Bellman}
+\subsection{Phương trình Hamilton-Jacobi-Bellman}
+\textbf{Xét hệ điều khiển} 
+\begin{eqnarray}
+	\dot{x}(t) &=& f(x(t), u(t)) \nonumber \\ x(t_0) &=& x_0 \nonumber
+\end{eqnarray} Hàm mục tiêu $$C(u) = \int_{t_0}^{T}f_0(x(t), u(t))dt \to \min$$
+Giả sử $V(x_1, t_1)$ là giá trị hàm mục tiêu tối ưu xuất phát từ $t_1$ với trạng thái ban đầu $x(t_1) = x_1$, tức là giá trị của hàm $$\int_{t_1}^{T}f_0(x(t), u(t))dt \to \min$$ Từ nguyên lý quy hoạch động ta có phương trình đối với hàm $V(x, T)$ \begin{equation}
+	\dfrac{\partial}{\partial t}V(x, t) = - \min\big\{\nabla_xV(x,t)f(x, w) + f_0(x, w)\big\}
+\end{equation} 
+Điều khiển tối ưu $u^*$ là giá trị $w_{\min}$ giải phương trình này. \\\\ Trong trường hợp hàm mục tiêu có chi trả trạng thái cuối cùng $$C(u) = G(x(t)) + \int_{t_0}^{T}f_0(x(t), u(t))dt$$ thì ta có điều khiển $V(x, T) = G(x(t))$, nếu $G(x(t)) = 0$ thì ta có $V(x, T) = 0$.\\\\ Phương trình (2.4) được gọi là phương trình Hamilton-Jacobi-Bellman (HJB).
+\subsection{Phương trình Riccati}
+\textbf{Xét hệ điều khiển}
+\begin{eqnarray}
+	\dot{x}(t) &=& Ax(t) + Bu(t) \nonumber\\ x(0) &=& 0, \quad A \in \mathbb{R}^{n\times n}, B \in \mathbb{R}^{n\times m} \nonumber
+\end{eqnarray} Hàm mục tiêu $$C(u) = \dfrac{1}{2}x(T)^TSx(T) + \dfrac{1}{2}\int_{0}^{T}\Big[x(t)^TQx(t) + u(t)^TRu(t)\Big]dt$$ trong đó $Q, S \in \mathbb{R}^{n\times n}$ là các ma trận xác định không âm và $R \in \mathbb{R}^{m\times m}$ là ma trận xác định dương.\\\\ Giải phương trình Hamilton-Jacobi-Bellman cho bài toán này, ta tìm được $$u^*(x, t) = -R^{-1}B^T\nabla_xV(x, t)$$ trong đó $V(x, t)$ là nghiệm của phương trình
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Kiểm soát phản hồi trạng thái tối ưu}
 	\section{Nguyên tắc tối ưu}
 	Xem xét vấn đề kiểm soát tối ưu sau đây với thời gian cuối cố định $t_b$:\\\\Tìm một điều khiển chấp nhận được $u$: $[t_a, t_b] \to \Omega \subseteq \mathbb{R}^m$ với các ràng buộc \begin{eqnarray}
 		x(t_a) &=& x_a \nonumber \\ \dot{x}(t) &=& f(x(t), u(t), t) \qquad \text{ với } t \in [t_a, t_b] \nonumber \\ x(t_b)&\in& S \subseteq \mathbb{R}^n \nonumber
 	\end{eqnarray} sao cho hàm mục tiêu đạt giá trị nhỏ nhất. $$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t),u(t), t)dt$$
-	Giả sử rằng chúng ta đã tìm thấy giải pháp tối ưu toàn cầu duy nhất với quỹ đạo điều khiển tối ưu $u_0$: $[t_a, t_b] \to \mathbb{R}^m$ và quỹ đạo trạng thái tối ưu tương ứng $x_0$: $[t_a, t_b] \to \mathbb{R}^n$ thỏa mãn $x_0 (t_a) = x_a$ và $x_0(t_b) \in S$.
+	Giả sử rằng chúng ta đã tìm thấy giải pháp tối ưu toàn cục duy nhất với quỹ đạo điều khiển tối ưu $u_0$: $[t_a, t_b] \to \mathbb{R}^m$ và quỹ đạo trạng thái tối ưu tương ứng $x_0$: $[t_a, t_b] \to \mathbb{R}^n$ thỏa mãn $x_0 (t_a) = x_a$ và $x_0(t_b) \in S$.
 	\\\\Bây giờ, chọn một thời gian tùy ý $\tau \in(t_a, t_b)$ và chia đôi vấn đề kiểm soát tối ưu ban đầu thành một vấn đề kiểm soát tối ưu trước đó trong khoảng thời gian $[t_a,\tau]$ và một vấn đề tối ưu thành công trong khoảng thời gian $[\tau, t_b]$.\\\\Vấn đề kiểm soát tối ưu tiền đề là:\\Tìm một điều khiển được chấp nhận $u$: $[t_a, \tau] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ được chuyển từ trạng thái ban đầu $$x(t_a) = x_a$$ đến trạng thái cố định cuối cùng $$x(\tau) = x^0(\tau)$$ tại thời điểm cuối cùng cố định $\tau$ và như vậy có hàm chi phí $$J(u) = \int_{t_a}^{\tau}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\Vấn đề kiểm soát tối ưu thành công là:\\
 	Tìm một điều khiển được chấp nhận $u$: $[\tau, t_b] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ 
 	được chuyển từ trạng thái ban đầu nhất định $$x(\tau) = x^0(\tau)$$ đến trạng thái cuối cùng $$x(t_b) \in S$$ tại thời gian cuối cùng cố định $t_b$ và như vậy hàm chi phí $$J(u) = K(x(t_b)) + \int_{\tau}^{t_b}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\
@@ -194,9 +293,9 @@ Giải phương trình (2.4) với $u^o$: \begin{equation}
 \end{eqnarray}
 \begin{itemize}
 	\item[\textbf{a)}] Xác định $T_x^{[3]}(x)$: \\ Sử dụng (2.3): \begin{eqnarray}
-		0 &=& (T_x^{[2]} + T_x^{[3]})[Ax + B(u^{o(1)} + u^{o(2)}) + f(x, u^{o(1)} + u^{o(2)})] \nonumber \\ && + \frac{1}{2}x^TQx + x^TN(u^{o(1)} + u^{o(2)}) + \frac{1}{2}(u^{o(1)} + u^{o(2)})^TR(u^{o(1)} + u^{o(2)}) \nonumber \\ && + \ell(x, u^{o(1)} + u^{o(2)}) \nonumber
+		0 &=& (T_x^{[2]} + T_x^{[3]})[Ax + B(u^{o(1)} + u^{o(2)}) + f(x, u^{o(1)} + u^{o(2)})] \nonumber \\ && + \text{ } \frac{1}{2}x^TQx + x^TN(u^{o(1)} + u^{o(2)}) + \frac{1}{2}(u^{o(1)} + u^{o(2)})^TR(u^{o(1)} + u^{o(2)}) \nonumber \\ && +\text{ } \ell(x, u^{o(1)} + u^{o(2)}) \nonumber
 	\end{eqnarray} Thuật ngữ khối: \begin{eqnarray}
-		0 &=& T_x^{[3]}[Ax+Bu^{o(1)}] + T_x^{[2]}[Bu^{o(2)}+f^{(2)}(x, u^{o(1)})] \nonumber \\ && + \text{ } x^TNu^{o(2)} + \frac{1}{2}u^{o(1)^T}Ru^{o(2)} + \frac{1}{2}u^{o(2)^T}Ru^{o(1)} + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ &=& T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ && + \text{ } [T_x^{[2]}B + x^TN + u^{o(1)^T}R]_{=0}u^{o(2)} \nonumber
+		0 &=& T_x^{[3]}[Ax+Bu^{o(1)}] + T_x^{[2]}[Bu^{o(2)}+f^{(2)}(x, u^{o(1)})] \nonumber \\ && + \text{ } x^TNu^{o(2)} + \frac{1}{2}u^{o(1)^T}Ru^{o(2)} + \frac{1}{2}u^{o(2)^T}Ru^{o(1)} + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ &=& T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ && + \text{ } \underbrace{[T_x^{[2]}B + x^TN + u^{o(1)^T}R]}_{= \text{ } 0}u^{o(2)} \nonumber
 	\end{eqnarray}
 	 Vì vậy, phương trình dành cho $T_x^{(3)}(x)$ là \begin{equation}
 	 	0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}).
@@ -209,7 +308,7 @@ Dạng bậc hai: \begin{equation}
 	u^{o(2)^T} = - \Big[T_x^{[3]}B + T_x^{[2]}f_u^{(1)}(x, u^{o(1)}) + \ell_u^{(2)}(x, u^{o(1)})\Big]R^{-1}
 \end{equation}
 \end{itemize}
-Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$ 
+Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$ không tồn tại ở vế phải. Do đó đây là các phương trình với hai vế được tách rời. Phương trình (2.7) là phương trình xác định $u^{o(2)}$ - Bước này xuất hiện theo cách tương tự trong các bước xấp xỉ tiếp theo. 
 
 \subsubsection{$3^{\text{rd}}$ Approximation}
 \begin{eqnarray}
@@ -222,4 +321,78 @@ Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$
 	\item[\textbf{b)}] Xác định $u^{o(3)}$: $$u^{o(3)^T} = -[T_x^{[4]}B + T_x^{[3]}f_u^{(1)}(x, u^*) + T_x^{[2]}f_u^{[2]}(x, u^*) + \ell_u^{(3)}(x, u^*)]R^{-1}$$
 \end{itemize}
 \subsubsection{\textit{k}$^{\text{th}}$ Approximation (\textit{k} $\geq$ 4)}
+\begin{eqnarray}
+	u^*(x) &=& \sum_{i=1}^{k-1}u^{o(i)} \nonumber\\ u^{o}(x) &=& u^*(x) + u^{o(k)}(x) \nonumber\\ T_x(x) &=& \sum_{j=2}^{k+1}T_x^{[j]}(x) \nonumber
+\end{eqnarray}
+\begin{itemize}
+	\item[\textbf{a)}] Xác định $T_x^{[k+1]}(x)$:\\\\Với $k$ chẵn:
+ \begin{equation}
+	\begin{split}
+	 0 = T_x^{[k+1]}A^ox + \sum_{j=2}^{k-1}T_x^{[k+2-j]}Bu^{o(j)} + \sum_{j=2}^{k}T_x^{[k+2-j]}f^{(j)}(x, u^*) \\+ \sum_{j=2}^{\frac{k}{2}}u^{o(j)^T}Ru^{o(k+1-j)} + \ell^{(k+1)}(x, u^*)
+	\end{split} \nonumber
+	\end{equation} Với $k$ lẻ:
+	\begin{equation}
+	\begin{split}
+	0 = T_x^{[k+1]}A^ox + \sum_{j=2}^{k-1}T_x^{[k+2-j]}Bu^{o(j)} + \sum_{j=2}^{k}T_x^{[k+2-j]}f^{(j)}(x, u^*) \\ + \sum_{j=2}^{\frac{k-1}{2}}u^{o(j)^T}Ru^{o(k+1-j)} + \frac{1}{2}
+		u^{o(\frac{k+1}{2})^T}Ru^{o(\frac{k+1}{2})} + \ell^{(k+1)}(x, u^*) 		
+		\end{split} \nonumber
+		\end{equation}
+	\item[\textbf{b)}] Xác định $u^{o(k)}$: $$u^{o(k)^T} = - \Big[T_x^{[k+1]}B + \ell_u^{(k)}(x, u^*) + \sum_{j=1}^{k-1}T_x^{[k+1-j]}f_u^{(j)}(x, u^*)\Big]R^{-1}$$
+\end{itemize}
+Các công thức này được thỏa mãn với mọi $k \geq 2$ nếu giá trị của một tổng trống bằng 0.
+\subsection{Bộ điều khiển với đặc tính lũy tiến}
+Đối với hệ động lực bất biến theo thời gian tuyến tính theo thứ tự đầu tiên, chúng ta muốn thiết kế một điều khiển phản hồi trạng thái bất biến theo thời gian $u(x)$, đặc tính của nó là siêu tuyến tính, tức là $u(x)$ là lũy tiến cho các giá trị lớn hơn của trạng thái $x$.\\\\Để đạt được mục tiêu này, chúng ta xây dựng một hàm chi phí với mục đích kiểm soát theo phương trình bậc hai và trạng thái siêu bậc hai. \\\\
+Ví dụ, chúng ta hãy xem xét vấn đề kiểm soát phản hồi trạng thái tối ưu được mô tả bởi các phương trình sau: \begin{eqnarray}
+	\dot{x}(t) &=& ax(t) + u(t) \nonumber \\ J(u) &=& \int_{0}^{\infty}\Big(q\cosh(x(t))-q+\frac{1}{2}u^2(t)\Big)dt, \nonumber
+\end{eqnarray} trong đó $a$ và $q$ là hằng số dương. \\\\ Sử dụng mở rộng chuỗi $$\cosh(x) = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \frac{x^8}{8!} + \cdots$$ đối với hàm cosin hyperbol, chúng ta có các tương ứng sau với danh pháp được sử dụng trong mục 2.3.2: \begin{eqnarray}
+	A&=&a \nonumber\\B&=&1\nonumber\\f(x, u)&\equiv& 0 \nonumber \\ f_u(x, u)&\equiv& 0 \nonumber \\ R&=&1\nonumber\\N&=&0 \nonumber\\Q&=&q\nonumber\\\ell(x, u)&=&q\Big(\frac{x^4}{4!} + \frac{x^6}{6!}+\frac{x^8}{8!} + \cdots\Big) \nonumber\\\ell_u(x, u) &\equiv&0 \nonumber.
+\end{eqnarray}
+\subsubsection{\textbf{1}$^{\text{st}}$Approximation: LQ-Regulator} \begin{eqnarray}
+	\dot{x}&=&ax + u \nonumber\\J(u)&=&\int_{0}^{\infty}\Big(\frac{1}{2}qx^2 + \frac{1}{2}u^2\Big)dt \nonumber\\u^{o(1)}&=&-Kx, \nonumber
+\end{eqnarray} với $$K = a + \sqrt{a^2+q}$$ là nghiệm dương của phương trình Riccati $$K^2 - 2aK - q = 0.$$ Kết quả của hệ thống điều khiển tuyến tính được mô tả bởi phương trình vi phân $$\dot{x}(t) = [a - K]x(t) = A^ox(t) = -\sqrt{a^2+q}x(t)$$ và có hàm chi phí $$T^{(2)}(x) = \frac{1}{2}Kx^2 = \frac{1}{2}\Big(a+\sqrt{a^2+q}\Big)x^2$$ với đạo hàm $$T_x^{[2]}(x) = Kx = \Big(a + \sqrt{a^2+q}\Big)x.$$
+\subsubsection{\textbf{2}$^{\text{nd}}$ Approximation} 
+Từ $$0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)} + \ell^{(3)}$$ chúng ta nhận được $$T_x^{[3]} = 0.$$ Vì $f_u(x, u) \equiv 0, \ell_u(x, u) \equiv 0, B=1$ và $R = 1$, chúng ta thu được kết quả sau đây với $k \geq 2$: $$u^{o(k)} = -T_x^{[k+1]}.$$ Vì thế, $$u^{o(2)} = -T_x^{[3]} = 0.$$
+\subsubsection{\textbf{3}$^{\text{rd}}$ Approximation}
+\begin{align}
+	0 = T_x^{[4]}A^ox + T_x^{[3]}Bu^{o(2)} + \sum_{j=2}^{3}T_x^{[5-j]}f^{(j)} + \frac{1}{2}u^{o(2)^T}Ru^{o(2)} + \ell^{(4)} \nonumber \\ T_x^{[4]} = \frac{qx^3}{4!\sqrt{a^2 + q}} \nonumber \\ u^{o(3)} = -T_x^{[4]} = -\frac{qx^3}{4!\sqrt{a^2+q}} \nonumber
+\end{align}
+\subsubsection{\textbf{4}$^{\text{th}}$ Approximation}
+\begin{align}
+	0=T_x^{[5]}A^ox + \sum_{j=2}^{3}T_x^{[6-j]}Bu^{o(j)} + \sum_{j=2}^{4}T_x^{[6-j]}f^{(j)} + \sum_{j=2}^{2}u^{o(j)}Ru^{o(5-j)} + \ell^{(5)} \nonumber \\ T_x^{[5]} = 0 \nonumber \\ u^{o(4)} = -T_x^{[5]} = 0 \nonumber
+\end{align}
+\subsubsection{\textbf{5}$^{\text{th}}$ Approximation}
+\begin{align}
+	0 = T_x^{[6]}A^ox + \sum_{j=2}^{4}T_x^{[7-j]}Bu^{o(j)} + \sum_{j=2}^{5}T_x^{[7-j]}f^{(j)}  +\sum_{j=2}^{2}u^{o(j)}Ru^{o(6-j)} + \frac{1}{2}u^{o(3)}Ru^{o(3)}+\ell^{(6)} \nonumber \\ T_x^{[6]} = \Big(\frac{q}{6!} - \frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{x^5}{a^2+q} \nonumber \\ u^{o(5)} = -T_x^{[6]} = -\Big(\frac{q}{6!} - \frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{x^5}{a^2+q} \nonumber 
+\end{align}
+\subsubsection{\textbf{6}$^{\text{th}}$ Approximation}
+\begin{align}
+	0=T_x^{[7]}A^ox + \sum_{j=2}^{5}T_x^{[8-j]}Bu^{o(j)} + \sum_{j=2}^{6}T_x^{[8-j]}f^{(j)} + \sum_{j=2}^{3}u^{o(j)}Ru^{o(7-j)} + \ell^{(7)} \nonumber \\ T_x^{[7]} = 0 \nonumber \\u^{o(6)} = -T_x^{[7]} = 0 \nonumber
+\end{align}
+\subsubsection{\textbf{7}$^{\text{th}}$ Approximation}
+\begin{align}
+	0=T_x^{[8]}A^ox + \sum_{j=2}^{6}T_x^{[9-j]}Bu^{o(j)} + \sum_{j=2}^{7}T_x^{[9-j]}f^{(j)} + \sum_{j=2}^{3}u^{o(j)}Ru^{o(8-j)}+\frac{1}{2}u^{o(4)^T}Ru^{o(4)} + \ell^{(8)} \nonumber \\ T_x^{[8]} = \bigg(\frac{q}{8!} - \Big(\frac{q}{6!}-\frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{1}{4!(a^2+q)}\bigg)\frac{x^7}{\sqrt{a^2+q}} \nonumber \\ u^{o(7)} = -T_x^{[8]} = -\bigg(\frac{q}{8!} - \Big(\frac{q}{6!}-\frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{1}{4!(a^2+q)}\bigg)\frac{x^7}{\sqrt{a^2+q}} \nonumber
+\end{align}
+\textbf{và như thế ...} \\\\Cuối cùng, chúng ta có được điều khiển phi tuyến, tối ưu gần đúng sau $$u^o(x) = u^{o(1)}(x) + u^{o(3)}(x) + u^{o(5)}(x) + u^{o(7)}(x) + \cdots $$ Về mặt thực tế, nó có thể được xấp xỉ bằng phương trình sau: $$u^o(x) \approx -(a+\sqrt{a^2 + q})x - 
+\frac{qx^3}{4!\sqrt{a^2+q}} - \frac{qx^5}{6!\sqrt{a^2+q}} - \frac{qx^7}{8!\sqrt{a^2+q}}-\cdots$$ Đặc tính của bộ điều khiển xấp xỉ này bị cắt bớt sau bốn thuật ngữ được hiển thị trong Hình 2.3.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=.6]{hinh5.png}
+	\caption{Xấp xỉ điều khiển tối ưu với $a = 3, q = 100$.}
+\end{figure}
+\subsection{Kiểm soát tốc độ LQQ}
+Phương trình chuyển động của vận tốc $v(t)$ của máy bay trong chuyến bay ngang có thể được mô tả bởi $$m\dot{v}(t) = -\frac{1}{2}c_wA_r\rho v^2(t) + F(t) ,$$ Trong đó $F(t)$ là lực đẩy ngang do động cơ phản lực tạo ra, $m$ là khối lượng của máy bay, $c_w$ là hệ số lực cản khí động học, $A_r$ là tiết diện tham chiếu của máy bay và $\rho$ là mật độ của không khí. \\\\Máy bay phải bay với tốc độ không đổi $v_0$. Đối với điều này, lực đẩy danh nghĩa $$F_0 = \frac{1}{2}c_wA_r\rho v_o^2$$ là cần thiết. Chúng ta muốn tăng cường chiến lược điều khiển vòng mở rõ ràng $F(t) \equiv F_0$ bằng điều khiển phản hồi sao cho vận tốc $v(t)$ được kiểm soát chính xác hơn, nếu có bất kỳ sự khác biệt nào xảy ra vì bất kỳ lý do gì. \\\\Giới thiệu biến trạng thái $$x(t) = v(t) - v_0$$ và biến điều khiển phụ hiệu chỉnh $$u(t) = \frac{1}{m}\big(F(t) - F_0\big)$$ các động lực phi tuyến sau đây để thiết kế điều khiển phản hồi thu được: \begin{eqnarray}
+	\dot{x}(t) &=& a_1x(t) + a_2x^2(t) + u(t) \nonumber \\ \text{ với } a_1 &=& -\frac{c_wA_r\rho v_0}{m} \nonumber \\ \text{ và } a_2 &=& - \frac{c_wA_r\rho }{2m} \nonumber
+\end{eqnarray} Đối với thiết kế của bộ điều khiển phản hồi, chúng ta chọn hàm chi phí bậc hai tiêu chuẩn $$J(u) = \frac{1}{2}\int_{0}^{\infty}\big(qx^2(t) + u^2(t)\big)dt.$$ Do đó, chúng ta có được các tương ứng sau với danh pháp được sử dụng trong Chương 2.3.2: \begin{eqnarray}
+	A&=&a_1\nonumber\\B&=&1\nonumber\\f(x, u) &=& a_2x^2 \nonumber \\ f_u(x, y) &\equiv& 0 \nonumber \\ f^{(1)}(x, u) &=& 2a_2x \nonumber \\ f^{(2)}(x, u) &=& 2a_2 \nonumber \\ f^{(3)}(x, u) &=& 0 \nonumber \\ Q&=&q \nonumber \\R&=&1 \nonumber \\\ell(x, u) &\equiv& 0 \nonumber 
+\end{eqnarray}
+\subsubsection{\textbf{1}$^\text{st}$ Approximation: LQ-Regulator} \begin{eqnarray}
+	\dot{x}(t) &=&a_1x + u \nonumber \\ J(u) &=& \int_{0}^{\infty}\Big(\frac{1}{2}qx^2+\frac{1}{2}u^2\Big)dt \nonumber \\ u^{o(1)}&=&-Kx, \nonumber
+\end{eqnarray} với $$K = a_1 + \sqrt{a_1^2+q}$$ là nghiệm dương của phương trình Riccati $$K^2-2a_1K-q=0$$ Kết quả của hệ thống điều khiển tuyến tính được mô tả bởi phương trình vi phân $$\dot{x}(t) = [a_1 - K]x(t) = A^ox(t) = -\sqrt{a_1^2+q}x(t)$$ và có hàm chi phí $$T^{(2)}(x) = \frac{1}{2}Kx^2 = \frac{1}{2}\bigg(a_1 + \sqrt{a_1^2+q}\bigg)x^2$$ với đạo hàm $$T_x^{[2]}(x) = Kx = \bigg(a_1 + \sqrt{a_1^2 + q}\bigg)x$$
+\subsubsection{\textbf{2}$^\text{nd}$ Approximation}
+Từ $$0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)} + \ell^{(3)}$$ chúng ta có $$T_x^{[3]} = \frac{a_1 + \sqrt{a_1^2 + q}}{\sqrt{a_1^2 + q}}a_2x^2.$$ Vì $f_u(x, u) \equiv 0, \ell_u(x,u) \equiv 0, B=1$ và $R=1$, chúng ta thu được kết quả sau đây với mọi $k \geq 2$: $$u^{o(k)} = -T_x^{[k+1]}.$$ Vì vậy, $$u^{o(2)} = -T_x^{[3]} = -\frac{a_1+\sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Vì phương trình chuyển động là bậc hai theo $x$, thuật toán dừng ở đây. Do đó, luật kiểm soát tối ưu xấp xỉ là: $$u(x) = u^{o(1)}(x) + u^{o(2)}(x) = -\Big(a_1 + \sqrt{a_1^2+q} \Big)x - \frac{a_1 + \sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Tính chất của bộ điều khiển xấp xỉ này được hiển thị trong Hình 2.4.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=.6]{hinh6ct.png}
+	\caption{Tính chất của điều khiển LQQ với $v_0 = 100$ m/s, $q = 0.001, c_w = 0.05, A_r = 0.5$ m$^2$, $\rho=1.3$kg/m$^3, m = 200$ kg.}
+\end{figure}
 \end{document} 
