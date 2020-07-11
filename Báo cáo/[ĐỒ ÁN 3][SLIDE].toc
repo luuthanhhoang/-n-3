@@ -1,0 +1,9 @@
+\babel@toc {vietnamese}{}
+\beamer@sectionintoc {1}{Nguy\IeC {\^e}n t\IeC {\'\abreve }c t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{3}{0}{1}
+\beamer@sectionintoc {2}{L\IeC {\'y} thuy\IeC {\'\ecircumflex }t Haminton-Jacobi-Bellman}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{\IeC {\DJ }i\IeC {\`\ecircumflex }u ki\IeC {\d \ecircumflex }n \IeC {\dj }\IeC {\h u} cho gi\IeC {\h a}i ph\IeC {\'a}p t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Lu\IeC {\d \acircumflex }n \IeC {\dj }i\IeC {\h \ecircumflex }m h\IeC {\d \ohorn }p l\IeC {\'y} v\IeC {\`\ecircumflex } l\IeC {\'y} thuy\IeC {\'\ecircumflex }t HJB}{9}{0}{2}
+\beamer@subsectionintoc {2}{3}{B\IeC {\`a}i to\IeC {\'a}n ph\IeC {\^a}n ph\IeC {\'\ocircumflex }i LQ}{11}{0}{2}
+\beamer@sectionintoc {3}{X\IeC {\'\acircumflex }p x\IeC {\h i} \IeC {\dj }i\IeC {\`\ecircumflex }u khi\IeC {\h \ecircumflex }n t\IeC {\'\ocircumflex }i \IeC {\uhorn }u}{14}{0}{3}
+\beamer@subsectionintoc {3}{1}{Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Lukes}{15}{0}{3}
+\beamer@subsectionintoc {3}{2}{B\IeC {\d \ocircumflex } \IeC {\dj }i\IeC {\`\ecircumflex }u khi\IeC {\h \ecircumflex }n v\IeC {\'\ohorn }i \IeC {\dj }\IeC {\d \abreve }c t\IeC {\'\i }nh l\IeC {\~u}y ti\IeC {\'\ecircumflex }n}{18}{0}{3}

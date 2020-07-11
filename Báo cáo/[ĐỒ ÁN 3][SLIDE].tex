@@ -1,0 +1,214 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[main=vietnamese, english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetheme{Antibes}
+
+\setbeamertemplate{footline}[frame number]
+\begin{document}
+	\author[Hoàng Thanh Lưu (Toán Tin K61)]{\textbf{Giảng viên hướng dẫn: PGS.TS Đỗ Đức Thuận\\
+			Thực hiện: Hoàng Thanh Lưu - Toán Tin K61}}
+	\title{\textbf{Điều khiển ngược trạng thái tối ưu}}
+	%\subtitle{}
+	\institute[]{\includegraphics[scale=.3]{bk.png}}
+	%\institute{}
+	%\date{}
+	%\subject{}
+	\setbeamercovered{transparent}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+\begin{frame}
+	\tableofcontents
+\end{frame}
+
+	\section{Nguyên tắc tối ưu}
+
+\begin{frame}
+	Tìm một điều khiển chấp nhận được $u$: $[t_a, t_b] \to \Omega \subseteq \mathbb{R}^m$ với các ràng buộc 
+	\begin{eqnarray}
+	x(t_a) &=& x_a \nonumber \\ \dot{x}(t) &=& f(x(t), u(t), t) \qquad \text{ với } t \in [t_a, t_b] \nonumber \\ x(t_b)&\in& S \subseteq \mathbb{R}^n \nonumber
+	\end{eqnarray} 
+	sao cho hàm mục tiêu đạt giá trị nhỏ nhất. 
+	$$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t),u(t), t)dt$$
+\end{frame}
+
+\begin{frame}
+	\begin{block}{\textbf{Vấn đề kiểm soát tối ưu tiền đề}}
+		Tìm một điều khiển được chấp nhận $u$: $[t_a, \tau] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ được chuyển từ trạng thái ban đầu $x(t_a) = x_a$ đến trạng thái cố định cuối cùng $x(\tau) = x^o(\tau)$ tại thời điểm cuối cùng cố định $\tau$ và như vậy có hàm chi phí $$J(u) = \int_{t_a}^{\tau}L(x(t),u(t),t)dt$$ là nhỏ nhất.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\begin{block}{\textbf{Vấn đề kiểm soát tối ưu thành công}}
+		
+		Tìm một điều khiển được chấp nhận $u$: $[\tau, t_b] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ 
+		được chuyển từ trạng thái ban đầu nhất định $x(\tau) = x^o(\tau)$ đến trạng thái cuối cùng $x(t_b) \in S$ tại thời gian cuối cùng cố định $t_b$ và như vậy hàm chi phí $$J(u) = K(x(t_b)) + \int_{\tau}^{t_b}L(x(t),u(t),t)dt$$ là nhỏ nhất.
+	\end{block}
+
+\end{frame}
+
+\begin{frame}
+	\begin{block}{\textbf{Định lý}}
+		\begin{itemize}
+			\item[\textbf{1)}] Giải pháp tối ưu cho bài toán điều khiển tối ưu thành công trùng khớp với phần thành công của giải pháp tối ưu của bài toán ban đầu.
+			\item[\textbf{2)}] Giải pháp tối ưu cho vấn đề kiểm soát tối ưu tiền đề trùng khớp với phần tiền đề của giải pháp tối ưu cho vấn đề ban đầu. 
+		\end{itemize}
+	\end{block}
+Chúng ta có thể giải quyết vấn đề điều khiển tối ưu thành công cho bất kỳ trạng thái ban đầu tùy ý $x\in \mathbb{R}^n$ tại thời điểm ban đầu $\tau$, thay vì chỉ cho giá trị cố định $x^o(\tau)$, có thể lặp lại quá trình này trong một thời gian ban đầu tùy ý $t \in [t_a, t_b]$, thay vì chỉ cho giá trị được chọn $\tau$ ban đầu. Hàm chi phí tối ưu $$T(x,t) = \min_{u(.)} \bigg\{K(x(t_b)) + \int_{t}^{t_b}L(x(t),u(t),t)dt \big | x(t) = x \bigg\}$$
+\end{frame}
+
+\section{Lý thuyết Haminton-Jacobi-Bellman}
+
+\subsection{Điều kiện đủ cho giải pháp tối ưu}
+\begin{frame}
+	\begin{enumerate}
+		\item[\textbf{a)}] Đặt $\hat{u}: [t_a, t_b] \to \Omega$ là một điều khiển được chấp nhận tạo ra quỹ đạo trạng thái $\hat{x}: [t_a, t_b] \to \mathbb{R}^n$ với $\hat{x}(t_a) = x_a$ và $\hat{x}(.) \in Z$.
+		\item [\textbf{b)}] Với tất cả $(x, t) \in Z$ và tất cả $\lambda \in \mathbb{R}^n$, để hàm Hamilton $H(x, \omega, \lambda, t) = L(x, \omega, t) + \lambda^Tf(x, \omega, t)$ có một giá trị nhỏ nhất toàn cục với $\omega \in \Omega$ tại $$\omega = \tilde{u}(x, \lambda, t) \in \Omega $$
+		\item[\textbf{c)}] Đặt $T(x, t): Z \to \mathbb{R}$ là một hàm phân biệt liên tục thỏa mãn phương trình vi phân HJB $$\frac{\partial T(x, t)}{\partial t} + H\bigg[x, \tilde{u}\big(x, \nabla_xT(x, t), t\big), \nabla_xT(x, t), t\bigg] = 0$$ với điều kiện biên $T(x, t_b) = K(x)$ với tất cả $(x, t_b) \in Z$.
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+	\begin{block}{\textbf{Định lý}}
+		Nếu các giả thuyết a, b, và c được thỏa mãn và nếu nếu quỹ đạo điều khiển $\hat{u}(.)$ và quỹ đạo trạng thái $\hat{x}(.)$ được tạo bởi $\hat{u}(.)$ có liên quan thông qua $$\hat{u}(t) = \tilde{u}\big(\hat{x}(t), \nabla_xT(\hat{x}(t), t), t\big), $$ 
+		thì giải pháp $\hat{u}, \hat{x}$ là tối ưu đối với tất cả các quỹ đạo trạng thái $x$ được tạo bởi một quỹ đạo kiểm soát được chấp nhận $u$, không rời $X$. Hơn nữa, $T(x, t)$ là hàm chi phí tối ưu.
+	\end{block}
+	\begin{exampleblock}{\textbf{Bổ đề}}
+		Nếu $Z = \mathbb{R}^n \times [t_a, t_b]$ thì giải pháp $\hat{u}, \hat{x}$ là tối ưu toàn cục.
+	\end{exampleblock}
+\end{frame}
+
+\subsection{Luận điểm hợp lý về lý thuyết HJB}
+\begin{frame}
+	\begin{enumerate}
+		\item [\textbf{1)}] Nếu hàm Hamilton H "bình thường"   (thỏa mãn giả thuyết b), chúng ta có duy nhất
+		H-tối thiểu điều khiển tối ưu: $$u^o(t) = \tilde{u}\big(x^o(t), \lambda^o(t), t\big)$$ 
+		\item [\textbf{2)}] Hàm chi phí tối ưu $T(x, t)$ phải thỏa mãn điều kiện biên $$T(x, t_b) = K(x)$$ vì tại thời điểm cuối cùng $t_b$, giá trị hàm giá chỉ bao gồm trạng thái cuối cùng $K(x)$.\item[\textbf{3)}] Nguyên lý tối ưu đã chỉ ra rằng chi phí tối ưu $\lambda^o(t)$ tương ứng với độ dốc của hàm chi phí tối ưu, $$\lambda^o(t) = \nabla_xT(x^o(t),t), $$ bất cứ đâu $T(x^o(t), t)$ liên tục khác biệt đối với $x$ tại $x = x^o(t)$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+	\item [\textbf{4)}] Cùng với một quỹ đạo được chấp nhận tùy ý $u(.)$, $x(.)$ tương ứng
+	hàm chi phí tối ưu $$J(x(t), t) = K(x(t_b)) + \int_{t}^{t_b}L(x(t), u(t), t)dt$$ tiến hóa theo phương trình vi phân sau: $$\frac{dJ}{dt} = \frac{\partial J}{\partial x}\dot{x} + \frac{\partial J}{\partial t} = \lambda^Tf(x, u, t) + \frac{\partial J}{\partial t} = -L(x, u, t)$$ Vì thế, $$\frac{\partial J}{\partial t} = -\lambda^Tf(x, u, t) - L(x, u, t) = -H(x, u, \lambda, t)$$
+\end{enumerate}
+\end{frame}
+
+\subsection{Bài toán phân phối LQ}
+\begin{frame}
+	Tìm một điều khiển ngược trạng thái tối ưu $u$: $\mathbb{R}^n \times [t_a, t_b] \to \mathbb{R}^m$, sao cho hệ động lực tuyến tính $$\dot{x}(t)=A(t)x(t) + B(t)u(t)$$ chuyển từ trạng thái ban đầu $x(t_a) = x_a$ sang trạng thái cuối cùng tại thời gian cuối cố định $t_b$ sao cho
+	\begin{eqnarray}
+	\begin{split}
+		J(u) =  \frac{1}{2}x^T(t_b)Fx(t_b) + \int_{t_a}^{t_b}\Big(\frac{1}{2}x^T(t)Q(t)x(t) \\ + x^T(t)N(t)u(t) + \frac{1}{2}u^T(t)R(t)u(t)\Big)dt
+	\end{split}
+ \nonumber
+	\end{eqnarray} đạt min, trong đó $R(t)$ là ma trận đối xứng xác định dương và $F, Q$ và $\begin{bmatrix}
+	Q(t)&N(t)\\N^T(t)&R(t)
+	\end{bmatrix}$ là đối xứng và nửa xác định dương.
+\end{frame}
+
+\begin{frame}
+	Xây dựng hàm Hamilton $$H = \frac{1}{2}x^TQx + x^TNu + \frac{1}{2}u^TRu + \lambda^TAx + \lambda^TBu$$ có điều khiển H-tối thiểu sau đây: $$u = -R^{-1}[B^T\lambda + N^Tx] = -R^{-1}[B^T\nabla_xT + N^Tx]$$ Kết hợp $T(x, t) = \dfrac{1}{2}x^TK(t)x$, thu được phương trình HJB
+		\begin{eqnarray}
+	\frac{1}{2}x^T \Big(\dot{K}(t) + Q - NR^{-1}N^T - K(t)BR^{-1}B^TK(t) + \nonumber \\ + \text{ } K(t)[A-BR^{-1}N^T] + [A - BR^{-1}N^T]^TK(t)\Big)x = 0 \nonumber\\
+	T(x, t_b) = \frac{1}{2}x^TFx \nonumber
+	\end{eqnarray}
+\end{frame}
+
+
+\begin{frame}
+		Do đó $$u(t) = -R^{-1}(t)[B^T(t)K(t) + N^T(t)]x(t)$$
+	trong đó ma trận đối xứng và (nửa) xác định dương $K(t)$ thỏa mãn phương trình vi phân Riccati:
+	\begin{eqnarray}
+	\begin{split}
+	\dot{K}(t) = -[A(t) - B(t)R^{-1}(t)N^T(t)]^TK(t) - K(t)[A(t) \\- B(t)R^{-1}(t)N^T(t)] -K(t)B(t)R^{-1}(t)B^T(t)K(t) \\ - Q(t) + N(t)R^{-1}(t)N^T(t) \nonumber
+	\end{split}	
+	\end{eqnarray} với điều kiện biên $$K(t_b) = F$$
+\end{frame}
+
+\section{Xấp xỉ điều khiển tối ưu}
+
+\begin{frame}
+		Tìm một điều khiển ngược trạng thái tối ưu  $u$: $\mathbb{R}^n \to \mathbb{R}^m$, sao cho hệ $$\dot{x}(t) = F(x(t), u(t)) = Ax(t) + Bu(t) + f(x(t), u(t))$$ chuyển từ trạng thái ban đầu $x(0) = x_a$ sang trạng thái cân bằng $x = 0$ tại thời điểm cuối sao cho hàm chi phí \begin{eqnarray}
+	\begin{split}
+	J(u) = \int_{0}^{\infty}L(x(t), u(t))dt 
+	= \int_{0}^{\infty}\Big(\frac{1}{2}x^T(t)Qx(t) \text{ }+ \\+ \text{ } x^T(t)Nu(t) + \frac{1}{2}u^T(t)Ru(t) + \ell(x(t), u(t)) \Big)dt \nonumber 
+	\end{split}
+	\end{eqnarray} đạt giá trị nhỏ nhất.
+\end{frame}
+
+\subsection{Phương pháp Lukes}
+
+\begin{frame}
+	\textbf{1$^\text{st}$ Approximation: LQ-Regulator} \begin{eqnarray}
+	\dot{x}(t) &=& Ax + Bu \nonumber \\
+	J(u) &=& \int_{0}^{\infty}\bigg(\frac{1}{2}x^TQx + x^TNu + \frac{1}{2}u^TRu\bigg)dt \nonumber \\ u^{o(1)} &=& Gx \text{ với } G = -R^{-1}(B^TK + N^T), \nonumber
+	\end{eqnarray} trong đó $K$ là nghiệm duy nhất duy nhất của phương trình Riccati $$[A-BR^{-1}N^T]^TK + K[A-BR^{-1}N^T] - KBR^{-1}B^TK + Q - NR^{-1}N^T = 0$$ Kết quả của hệ được mô tả bởi phương trình $$\dot{x}(t) = [A + BG]x(t) = A^ox(t)$$ và có giá trị hàm chi phí $$T^{(2)}(x) = \frac{1}{2}x^TKx \text{ với } T_x^{[2]}(x) = x^TK.$$
+\end{frame}
+
+\begin{frame}
+	\textbf{\textit{k}$^\text{st}$ Approximation: \textit{k} $\geq$ 4}
+	\begin{eqnarray}
+	u^*(x) &=& \sum_{i=1}^{k-1}u^{o(i)} \nonumber\\ u^{o}(x) &=& u^*(x) + u^{o(k)}(x) \nonumber\\ T_x(x) &=& \sum_{j=2}^{k+1}T_x^{[j]}(x) \nonumber
+	\end{eqnarray}
+\textbf{Xác định $T_x^{[k+1]}(x)$} \qquad Với $k$ chẵn:
+		\begin{equation}
+		\begin{split}
+		0 = T_x^{[k+1]}A^ox + \sum_{j=2}^{k-1}T_x^{[k+2-j]}Bu^{o(j)} + \sum_{j=2}^{k}T_x^{[k+2-j]}f^{(j)}(x, u^*) \\+ \sum_{j=2}^{\frac{k}{2}}u^{o(j)^T}Ru^{o(k+1-j)} + \ell^{(k+1)}(x, u^*)
+		\end{split} 
+		\end{equation}
+\end{frame}
+
+\begin{frame}
+	Với $k$ lẻ:
+	\begin{equation}
+	\begin{split}
+	0 = T_x^{[k+1]}A^ox + \sum_{j=2}^{k-1}T_x^{[k+2-j]}Bu^{o(j)} + \sum_{j=2}^{k}T_x^{[k+2-j]}f^{(j)}(x, u^*) \\ + \sum_{j=2}^{\frac{k-1}{2}}u^{o(j)^T}Ru^{o(k+1-j)} + \frac{1}{2}
+	u^{o(\frac{k+1}{2})^T}Ru^{o(\frac{k+1}{2})} + \ell^{(k+1)}(x, u^*) 		
+	\end{split}
+	\end{equation}
+	\textbf{Xác định $u^{o(k)}$} 
+	\begin{equation}
+		u^{o(k)^T} = - \Big[T_x^{[k+1]}B + \ell_u^{(k)}(x, u^*) + \sum_{j=1}^{k-1}T_x^{[k+1-j]}f_u^{(j)}(x, u^*)\Big]R^{-1}
+	\end{equation}
+\end{frame}
+
+\subsection{Bộ điều khiển với đặc tính lũy tiến}
+
+\begin{frame}
+	Xem xét bài toán điều khiển ngược trạng thái tối ưu 
+	\begin{eqnarray}
+	\dot{x}(t) &=& ax(t) + u(t) \nonumber \\ J(u) &=& \int_{0}^{\infty}\Big(q\cosh(x(t))-q+\frac{1}{2}u^2(t)\Big)dt \nonumber
+	\end{eqnarray} trong đó $a$ và $q$ là hằng số dương. \\ Sử dụng mở rộng chuỗi $$\cosh(x) = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \frac{x^8}{8!} + \cdots$$3d trong đó 
+	$A=a, B=1, f(x, u)\equiv 0, f_u(x, u) \equiv 0, R=1, N=0, Q=q, \ell(x, u)=q\Big(\frac{x^4}{4!} + \frac{x^6}{6!}+\frac{x^8}{8!} + \cdots\Big) , \ell_u(x, u) \equiv 0$
+\end{frame}
+
+\begin{frame}
+Kết hợp các kết quả từ phương pháp Lukes, ta được 
+\begin{equation}
+	u^o(x) = u^{o(1)}(x) + u^{o(3)}(x) + u^{o(5)}(x) + u^{o(7)}(x) + \cdots 
+\end{equation}
+
+Và có thế được xấp xỉ bằng phương trình sau
+\begin{equation}
+\begin{split}
+u^o(x) \approx -(a+\sqrt{a^2 + q})x - 
+\frac{qx^3}{4!\sqrt{a^2+q}} \\- \frac{qx^5}{6!\sqrt{a^2+q}} - \frac{qx^7}{8!\sqrt{a^2+q}}-\cdots
+\end{split}
+\end{equation}	
+\end{frame}
+
+\section*{}
+
+\begin{frame}
+	\begin{center}
+		\color{red}
+		\textbf{Cảm ơn thầy cô và các bạn đã lắng nghe!!!}
+		\includegraphics[scale=.1]{hinh16.jpg}
+	\end{center}
+\end{frame}
+\end{document}

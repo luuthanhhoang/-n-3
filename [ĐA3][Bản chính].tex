@@ -11,7 +11,7 @@
 \changefontsizes{13pt}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{\textit{Kiểm soát phản hồi trạng thái tối ưu}}
+\lhead{\textit{Điều khiển ngược trạng thái tối ưu}}
 \chead{}
 \rhead{\textit{GVHD: PGS Đỗ Đức Thuận}}
 \lfoot{\textit{SVTH: Hoàng Thanh Lưu}}
@@ -25,7 +25,7 @@
 	\fbox}{} % phần nội dung sau là tương tự như đã làm
 \thispagestyle{empty}
 \begin{center}
-	\vspace*{0.4cm}
+	\vspace*{0.2cm}
 	\fontsize{14}{12}
 	\textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI}\\
 	\textbf{VIỆN TOÁN ỨNG DỤNG VÀ TIN HỌC}\\
@@ -38,10 +38,12 @@
 \vspace*{0.8cm}
 \begin{center}
 	\fontsize{20}{18}
-	\textbf{KIỂM SOÁT PHẢN HỒI TRẠNG THÁI TỐI ƯU}\\
+	\textbf{ĐIỀU KHIỂN NGƯỢC TRẠNG THÁI\\ TỐI ƯU}\\
 	\vspace*{0.8cm}
 	\fontsize{18}{16}
-	\textbf{ĐỒ ÁN III}
+	\textbf{ĐỒ ÁN III}\\
+	\fontsize{14}{16}
+	\textbf{Chuyên ngành: Toán Tin}
 \end{center}
 \vspace*{0.7cm}
 \begin{center}
@@ -72,15 +74,237 @@
 	
 	\begin{flushright}
 		\begin{tabular}{cccc}
-			&   \textit{ Hà Nội ngày $\quad$ tháng  6 năm 2020} && \\ 
+			&   \textit{ Hà Nội ngày 25 tháng  6 năm 2020} && \\ 
 			&    Giảng viên hướng dẫn && \\ 
 			&    \textit{(Ký và ghi rõ họ tên)} && \\ 
 		\end{tabular} 
 	\end{flushright}
+	\chapter*{Lời nói đầu}
+	Trong thực tiễn, khi thiết kế, xây dựng bất kì một hệ thống điều khiển nào đó, các nhà thiết kế thường hay gặp phải bài toán thiết kế là làm sao cho hệ thống đạt được chất lượng làm việc mong muốn như: tính ổn định, mức tiêu hao năng lượng thấp, tính bền vững cao, ... \\\\ Điều khiển tối ưu là một phần mở rộng của phép tính biến phân, là một phương pháp tối ưu hóa cho các lý thuyết điều khiển phát sinh. Điều khiển tối ưu có thể được xem như là một phương án điều khiển trong lý thuyết điều khiển tự động.
+	\\\\ Nhận thức được tầm quan trọng của lý thuyết điều khiển tối ưu, đồ án sẽ đi sâu vào nghiên cứu cụ thể về một chủ đề là \textit{"Điều khiển ngược trạng thái tối ưu"} với cách thức nghiên cứu lý thuyết, thực tiễn và tham khảo ý kiến chuyên môn của giảng viên. \\\\ Xin được gửi lời cảm ơn chân thành nhất tới PGS.TS Đỗ Đức Thuận - Giảng viên Viện Toán ứng dụng và Tin học vì đã có những nhận xét, góp ý khách quan để em hoàn thành tốt hơn báo cáo này. Dù đã dành nhiều thời gian tìm hiểu, đầu tư nghiêm túc nhưng báo cáo này không thể tránh khỏi những sai sót, cả về chủ quan và khách quan. Vì vậy em rất mong nhận được sự góp ý quý báu của các bạn sinh viên, các thầy cô giáo để báo cáo trở nên hoàn thiện hơn.\\\\ Em xin chân thành cảm ơn!
 		\tableofcontents
-	\chapter{Các khái niệm cơ bản}
+		
+
+	\chapter{Cơ sở lý thuyết}
+		\section{Vector và ma trận}
+	\subsection{Vector}
+	Bộ $n$ số thực $(x_1, x_2, ..., x_n)$ được gọi là vector $n$ chiều. Thông thường người ta viết các vector $n$ chiều dưới dạng cột
+	$ \begin{bmatrix}
+	x_1\\x_2\\\vdots\\x_n
+	\end{bmatrix}$. Các phép toán cộng hai vector và nhân hai vector được định nghĩa như sau: giả sử $x = \begin{bmatrix}
+	x_1\\x_2 \\\vdots \\x_n
+	\end{bmatrix}$, $y = \begin{bmatrix}
+	y_1\\y_2 \\\vdots \\y_n
+	\end{bmatrix}$ thì \begin{center}
+		$x + y = \begin{bmatrix}
+		x_1\\x_2\\\vdots\\x_n
+		\end{bmatrix} + \begin{bmatrix}
+		y_1\\y_2\\\vdots\\ y_n
+		\end{bmatrix} = \begin{bmatrix}
+		x_1+y_1\\x_2 + y_2\\\vdots\\x_n + y_n
+		\end{bmatrix}$ ; $cx = \begin{bmatrix}
+		cx_1\\cx_2\\\vdots\\cx_n
+		\end{bmatrix}$
+	\end{center} 
+	Với hai phép toán này, tập hợp tất cả các vector $n$ chiều tạo thành không gian tuyến tính $n$ chiều $\mathbb{R}^n$.
+	\subsection{Ma trận}
+	Ma trận $A = (a_{ij})_{m \times n}$ là một bảng số hình chữ nhật $A_{m \times n} = \begin{bmatrix}
+	a_{11}&a_{12}&\cdots&a_{1n}\\
+	a_{21}&a_{22}&\cdots&a_{2n}\\
+	\cdots&\cdots&\ddots&\cdots\\
+	a_{m1}&a_{m2}&\cdots&a_{mn}
+	\end{bmatrix}$.\\ Cộng hai ma trận và nhân ma trận với hằng số: Nếu $A = (a_{ij})_{m \times n}$ và $B = (b_{ij})_{m \times n}$ thì tổng $A + B$ là 
+	$$\begin{bmatrix}
+	a_{11}&\cdots&a_{1n}\\
+	a_{21}&\cdots&a_{2n}\\
+	\cdots&\ddots&\cdots\\
+	a_{m1}&\cdots&a_{mn}
+	\end{bmatrix} + \begin{bmatrix}
+	b_{11}&\cdots&b_{1n}\\
+	b_{21}&\cdots&b_{2n}\\
+	\cdots&\ddots&\cdots\\
+	b_{m1}&\cdots&b_{mn}\end{bmatrix} = \begin{bmatrix}
+	a_{11} + b_{11}&\cdots&a_{1n} + b_{1n}\\
+	a_{21} + b_{21}&\cdots&a_{2n} + b_{2n}\\
+	\cdots&\ddots&\cdots\\
+	a_{m1} + b_{m1}&\cdots&a_{mn} + b_{mn}
+	\end{bmatrix}$$ \\Tích của hằng số  $c$ và $A$ là $cA = \begin{bmatrix}
+	ca_{11}&ca_{12}&\cdots&ca_{1n}\\
+	ca_{21}&ca_{22}&\cdots&ca_{2n}\\
+	\cdots&\cdots&\ddots&\cdots\\
+	ca_{m1}&ca_{m2}&\cdots&ca_{mn}
+	\end{bmatrix} $.
 	
-	\chapter{Một số vấn đề về  bài toán điều khiển tối ưu}
+		\section{Chuyển vị}
+	Một toán tử quan trọng của ma trận hay vector là toán tử \textit{chuyển vị (transpose)}.\\\\
+	Cho $A \in \mathbb{R}^{m \times n}$, ta nói $B \in \mathbb{R}^{n \times m}$ là chuyển vị của $A$ nếu $b_{ij} = a_{ij}$, $\forall 1 \leq i \leq n, 1 \leq j \leq m$.\\Một cách ngắn gọn, chuyển vị của một ma trận là một ma trận nhận được từ ma trận cũ thông qua phép phản xạ gương qua đường chéo chính của ma trận ban đầu. Toán tử chuyển vị thường được kí hiệu bởi chữ $T, t$ hoặc kí tự $\top$. Trong báo cáo này, chúng ta sẽ sử dụng chữ cái $T$. Ví dụ chuyển vị của một vector $x$ được kí hiệu $x^T$, chuyển vị của một ma trận $A$ được kí hiệu $A^T$. Cụ thể: $$x = 
+	\begin{bmatrix}
+	x_1\\x_2\\ \vdots\\x_n
+	\end{bmatrix} \Rightarrow x^T = [x_1 \text{ } x_2 \text{ } ... \text{ } x_n] \text{ ; }  A = \begin{bmatrix}
+	a_{11} &\cdots &a_{1n}\\	a_{21}&\cdots &a_{2n}\\\cdots & \ddots & \cdots\\a_{m1}&\cdots&a_{mn}
+	\end{bmatrix} \Rightarrow A^T = \begin{bmatrix}
+	a_{11} &\cdots &a_{m1}\\	a_{12} &\cdots &a_{m2}\\\cdots & \ddots & \cdots\\a_{1n}&\cdots&a_{mn}
+	\end{bmatrix}$$
+	\section{Phép nhân hai ma trận}
+\subsection{Định nghĩa}
+Cho hai ma trận $A \in \mathbb{R}^{m \times n}, B \in \mathbb{R}^{n \times p}$, tích của hai ma trận được ký hiệu là $C = AB \in \mathbb{R}^{m \times p}$, trong đó phần tử ở hàng thứ $i$, cột thứ $j$ của ma trận kết quả được tính bởi:
+\begin{equation}
+c_{ij} = \sum^{n}_{k=1} a_{ik}b_{kj}, \forall 1 \leq i \leq m, 1 \leq j \leq p
+\end{equation}
+Điều kiện để nhân được hai ma trận là số cột của ma trận thứ nhất phải bằng số hàng của ma trận thứ hai. Trong định nghĩa trên, chúng đều bằng $n$.
+\subsection{Tính chất của phép nhân hai ma trận}
+Một vài tính chất của phép nhân hai ma trận (giả sử kích thước của các ma trận là phù hợp để các phép nhân ma trận tồn tại):
+\begin{itemize}
+	\item Phép nhân ma trận không có tính chất giao hoán. Thông thường (không phải luôn luôn), $AB \neq BA$. Thậm chí trong nhiều trường hợp, các phép tính này không tồn tại vì kích thước các ma trận lệch nhau.
+	\item Phép nhân ma trận có tính chất kết hợp. $ABC = (AB)C = A(BC)$.
+	\item Phép nhân ma trận có tính chất phân phối đối với phép cộng: $A(B + C) = AB + AC$.
+	\item Chuyển vị của một tích bằng tích các chuyển vị theo thứ tự ngược lại. 
+\end{itemize}
+\noindent
+Phép nhân của một ma trận $A \in \mathbb{R}^{m \times n}$ với một vector $x \in \mathbb{R}^{n}$ là một vector $b \in \mathbb{R}^m$:
+\begin{equation}
+Ax = b \text{, với } b_i = A_{:,i}x
+\end{equation} trong đó $A_{:,i}$  là vector hàng thứ $i$ của $A$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ma trận đơn vị và ma trận nghịch đảo}
+\subsection{Ma trận đơn vị}
+\textit{Đường chéo chính} của một ma trận là tập hợp các điểm có chỉ số hàng và chỉ số cột là như nhau. Cách định nghĩa này cũng có thể được định nghĩa cho một ma trận không vuông. Cụ thể, nếu $A \in \mathbb{R}^{m \times n}$ thì đường chéo chính của $A$ bao gồm \{$a_{11}, a_{12}, ..., a_{pp}$\}, trong đó $p = min(m,n)$.\\\\
+Một ma trận đơn vị bậc $n$ là một ma trận đặc biệt trong $\mathbb{R}^{n \times n}$ với các phần tử trên đường chéo chính bằng 1, các phần tử còn lại bằng 0. Ma trận đơn vị thường được kí hiệu $I$ \textit{(identity matrix)}. Nếu làm việc với nhiều ma trận đơn vị với bậc khác nhau, ta kí hiệu $I_n$ cho ma trận đơn vị bậc $n$. Dưới đây là ma trận đơn vị bậc 3 và bậc 4.
+\begin{center}
+	$I_3 = \begin{bmatrix}
+	1&0&0\\0&1&0\\0&0&1
+	\end{bmatrix}$; $I_4 = \begin{bmatrix}
+	1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1
+	\end{bmatrix}$
+\end{center}
+Ma trận đơn vị có tính chất đặc biệt trong phép nhân. Nếu $A \in \mathbb{R}^{m \times n}, B \in \mathbb{R}^{n \times m}$ và $I$ là ma trận đơn vị bậc $n$, ta có: $AI =A, IB = B$.\\Với mọi vector $x \in \mathbb{R}^n$, ta có $I_nx = x$.
+\subsection{Ma trận nghịch đảo}
+Cho một ma trận vuông $A \in \mathbb{R}^{n \times n}$, nếu tồn tại ma trận vuông $B \in \mathbb{R}^{n \times n}$ sao cho $AB = I_n$, thì ta nói $A$ là khả nghịch \textit{(invertible, nonsingular hoặc nondegenerate)}, và $B$ được gọi là ma trận nghịch đảo \textit{(inverse matrix)} của $A$. Nếu không tồn tại ma trận $B$, ta nói $A$ là ma trận không khả nghịch \textit{(singular hoặc degenerate)}.\\\\
+Nếu $A$ là khả nghịch, ma trận nghịch đảo của nó thường được kí hiệu là $A^{-1}$. Ta cũng có:
+\begin{equation}
+A^{-1}A = AA^{-1} = I
+\end{equation}
+Ma trận nghịch đảo thường được sử dụng để giải hệ phương trình tuyến tính. Giả sử rằng $A \in \mathbb{R}^{n \times n}$ là một ma trận khả nghịch và một vector $b \in \mathbb{R}^n$ bất kì. Khi đó phương trình \begin{equation}
+Ax = b
+\end{equation} có nghiệm duy nhất là $x = A^{-1}b$. Thật vậy, nhân bên trái cả hai vế của phương trình (1.4) với $A^{-1}$, ta có $Ax=b \Rightarrow A^{-1}Ax = A^{-1}b \Leftrightarrow x = A^{-1}b$.
+\\\\Nếu $A$ không khả nghịch, thậm chí không vuông, phương trình tuyến tính (1.4) có thể không có nghiệm hoặc có vô số nghiệm.\\\\
+Giả sử các ma trận vuông $A, B$ là khả nghịch, khi đó tích của chúng cũng khả nghịch, và $(AB)^{-1} = B^{-1}A^{-1}$. Quy tắc này cũng khá giống với cách tính ma trận chuyển vị của tích các ma trận.
+
+\section{Ma trận xác định dương}
+\subsection{Định nghĩa}
+Một ma trận đối xứng $A \in \mathbb{R}^{n \times n}$ được gọi là xác định dương nếu: $$x^TAx > 0, \forall x\in \mathbb{R}^n, x \neq 0$$
+Một ma trận đối xứng $A \in \mathbb{R}^{n \times n}$ được gọi là nửa xác định dương nếu: $$x^TAx \geq 0, \forall x\in \mathbb{R}^n, x \neq 0$$
+Ma trận xác định âm và nửa xác định âm cũng được định nghĩa tương tự.	
+\subsection{Tính chất}
+\begin{itemize}
+	\item Mọi trị riêng của một ma trận xác định dương đều là một số thực dương.  Mọi trị riêng của một ma trận nửa xác định dương đều là không âm.\item Mọi ma trận xác định dương là khả nghịch.  Hơn nữa, định thức của nó là một số dương. Điều này suy ra trực tiếp từ tính chất 1, với lưu ý rằng định thức của một ma trận bằng tích tất cả các trị riêng của nó.
+	\item Nếu $A$ là một ma trận nửa xác định dương thì $x^TAx = 0 \Leftrightarrow Ax = 0.$ \\Nếu $Ax = 0 \Rightarrow x^TAx = 0$ một cách hiển nhiên.\\ Nếu $x^TAx = 0$. Với vector $y \neq 0$ bất kì có cùng kích thước với $x$, xét hàm số sau đây $$f(\lambda) = (x+\lambda y)^TA(x+ \lambda y)$$ Hàm số này không âm với mọi $\lambda$ vì $A$ là một ma trận nửa xác định dương. Đây là một tam thức bậc hai của $\lambda$ $$f(\lambda) = y^TAy\lambda^2 + 2y^TAx\lambda + x^TAx = y^TAy\lambda^2 + 2y^TAx\lambda$$ Xét hai trường hợp: 
+	\begin{itemize}
+		\item $y^TAy = 0$. Khi đó $f(\lambda) = 2y^TAx\lambda \geq 0, \forall \lambda$ nếu và chỉ nếu $y^TAx = 0$
+		\item $y^TAy > 0$. Khi đó tam thức bậc hai $f(\lambda) \geq 0, \forall \lambda$ nếu và chỉ nếu $\Delta' = (y^TAx)^2 \leq 0$ vì hệ số ứng với thành phần bậc hai bằng $y^TAy > 0.$ Điều này cũng đồng nghĩa với việc $y^TAx = 0$.
+	\end{itemize}
+Tóm lại, $y^TAx = 0, \forall y \neq 0$. Điều này chỉ xảy ra nếu $Ax = 0$.
+\end{itemize}
+\section{Đạo hàm}
+\subsection{Đạo hàm của một hàm trả về một số vô hướng}
+Đạo hàm bậc nhất (first-order gradient) hay viết gọn là đạo hàm (gradient) của một hàm số $f(x): \mathbb{R}^n \rightarrow \mathbb{R}$ theo $x$ được định nghĩa là
+\begin{eqnarray}
+	\nabla_xf(x) = \begin{bmatrix}
+	\dfrac{\partial f(x)}{\partial x_1}\\\dfrac{\partial f(x)}{\partial x_2}\\ \vdots \\ \dfrac{\partial f(x)}{\partial x_n}
+	\end{bmatrix} \in \mathbb{R}^n
+\end{eqnarray} trong đó $\dfrac{\partial f(x)}{\partial x_i}$ là đạo hàm riêng (partial derivative) của hàm số thành phần thứ $i$ của vector $x$. Đạo hàm này được lấy khi tất cả các biến, ngoài $x_i$, được giả sử là hằng số. Nếu không có thêm biến nào khác, $\nabla_xf(x)$ thường được viết gọn là $\nabla f(x)$. Đạo hàm của hàm số này là một vector có cùng chiều với vector đang được lấy đạo hàm. Tức vector được viết dưới dạng cột thì đạo hàm cũng được viết dưới dạng cột. \\\\ Đạo hàm bậc hai (second-order gradient) của hàm số trên còn được gọi là Hessian và được định nghĩa như sau, với $\mathbb{S}^n \in \mathbb{R}^{n \times n}$ là tập các ma trận vuông đối xứng bậc $n$.
+\begin{eqnarray}
+	\nabla^2f(x) = \begin{bmatrix}
+		\dfrac{\partial^2 f(x)}{\partial x^2_1}&\dfrac{\partial^2 f(x)}{\partial x_1\partial x_2}&\cdots&\dfrac{\partial^2 f(x)}{\partial x_1\partial x_n} \\ 	\dfrac{\partial^2 f(x)}{\partial x_2 \partial x_1}&\dfrac{\partial^2 f(x)}{\partial x^2_2}&\cdots&\dfrac{\partial^2 f(x)}{\partial x_2\partial x_n} \\ \vdots & \vdots& \ddots& \vdots \\ 	\dfrac{\partial^2 f(x)}{\partial x_n \partial x_1}&\dfrac{\partial^2 f(x)}{\partial x_n\partial x_2}&\cdots&\dfrac{\partial^2 f(x)}{\partial x^2_n}
+	\end{bmatrix} \in \mathbb{S}^n
+\end{eqnarray}
+Đạo hàm của một hàm số $f(X): \mathbb{R}^{n \times m} \rightarrow \mathbb{R}$ theo ma trận $X$ được định nghĩa là \begin{eqnarray}
+	\nabla f(X) = \begin{bmatrix}
+			\dfrac{\partial f(X)}{\partial x_{11}}&\dfrac{\partial f(X)}{\partial x_{12}}&\cdots&\dfrac{\partial f(X)}{\partial x_{1m}} \\ 	\dfrac{\partial f(X)}{ \partial x_{21}}&\dfrac{\partial f(X)}{\partial x_{22}}&\cdots&\dfrac{\partial f(X)}{\partial x_{2m}} \\ \vdots & \vdots& \ddots& \vdots \\ 	\dfrac{\partial f(X)}{\partial x_{n1}}&\dfrac{\partial f(X)}{\partial x_{n2}}&\cdots&\dfrac{\partial f(X)}{\partial x_{nm}}
+	\end{bmatrix} \in \mathbb{R}^{n \times m}
+\end{eqnarray} 
+Đạo hàm của hàm số $f: \mathbb{R}^{m \times n} \to \mathbb{R}$ là một ma trận trong $\mathbb{R}^{m \times n}, \forall m, n \in \mathbb{N}^*$. Cụ thể, để tính đạo hàm của một hàm $f: \mathbb{R}^{m \times n} \to \mathbb{R}$, ta tính đạo hàm riêng của hàm số đó theo từng thành phần của ma trận khi toàn bộ các thành phần khác được giả sử là hằng số. Tiếp theo, ta sắp xếp các đạo hàm riêng tính được theo đúng thứ tự trong ma trận.
+
+\subsection{Đạo hàm của hàm trả về một vector}
+Xét một hàm trả về vector với đầu vào là một số thực $v(x): \mathbb{R} \to \mathbb{R}^n$: \begin{eqnarray}
+	v(x) = \begin{bmatrix}
+	v_1(x)\\v_2(x)\\ \cdots \\ v_n(x)
+	\end{bmatrix}
+\end{eqnarray} Đạo hàm của hàm số này theo $x$ là một vector hàng như sau: \begin{eqnarray}
+	\nabla v(x) = \begin{bmatrix}
+	\dfrac{\partial v_1(x)}{\partial x} & 	\dfrac{\partial v_2(x)}{\partial x} & \cdots & 	\dfrac{\partial v_n(x)}{\partial x}
+	\end{bmatrix}
+\end{eqnarray} Đạo hàm bậc hai của hàm số này có dạng \begin{eqnarray}
+	\nabla^2 v(x) = \begin{bmatrix}
+	\dfrac{\partial^2 v_1(x)}{\partial x^2} & 	\dfrac{\partial^2 v_2(x)}{\partial x^2} & \cdots & 	\dfrac{\partial^2 v_n(x)}{\partial x^2}
+	\end{bmatrix}
+\end{eqnarray}
+\subsection{Tính chất quan trọng của đạo hàm}
+\subsubsection{Quy tắc tích (Product rule)} Để cho tổng quát ta giả sử biến đầu vào là một ma trận. Giả sử rằng các hàm số có chiều phù hợp để các phép nhân thực hiện được. Ta có \begin{equation}
+	\nabla\big(f(X)^Tg(X)\big) = (\nabla f(X))g(X) + (\nabla g(X))f(X)
+\end{equation} Biểu thức này giống như biểu thức mà chúng ta đã quen thuộc: $$(f(x)g(x))' = f'(x)g(x) + g'(x)f(x)$$ Chú ý rằng với tích của vector và ma trận, ta không được sử dụng tính chất giao hoán.\subsubsection{Quy tắc chuỗi (Chain rule)}
+Khi có các hàm hợp thì \begin{equation}
+	\nabla_xg(f(X)) = (\nabla_xf)^T(\nabla_fg)
+\end{equation} Quy tắc này cũng giống quy tắc trong hàm một biến: $$(g(f(x)))' = f'(x)g'(f)$$ Một lưu ý nhỏ nhưng quan trọng khi làm việc với tích các ma trận là sự phù hợp về kích thước của các ma trận trong tích.
+
+\section{Hàm tuyến tính, hàm afin}
+Một hàm số $f(x)$ xác định trên $\mathbb{R}^n$ được gọi là tuyến tính nếu $$f(\alpha x^1 + \beta x^2) = \alpha f(x^1) + \beta f(x^2)$$ với mọi $x^1, x^2$ $\in$ $\mathbb{R}^n$ và với mọi $\alpha$, $\beta$ $\in \mathbb{R}$. Một hàm tuyến tính xác định trên $\mathbb{R}^n$ luôn có dạng $f(x) = \langle c, x \rangle$, trong đó vector $c \in \mathbb{R}^n$ cho trước. \\\\
+Hàm số có dạng $f(x) = \langle c, x \rangle + \lambda$, trong đó vector $c \in \mathbb{R}^n$ và $\lambda \in \mathbb{R}$ cho trước, được gọi là hàm afin hay hàm tuyến tính afin. Dễ thấy nếu $f(x)$ là afin thì $\forall x, y \in \mathbb{R}^n, \forall \alpha, \beta \in \mathbb{R}$ mà  $\alpha$ + $\beta$ = 1 ta có $$f(\alpha x + \beta y) = \alpha f(x) + \beta f(y)$$
+
+\section{Bài toán tối ưu}
+\subsection{Các khái niệm cơ bản}
+Bài toán tối ưu dạng tổng quát: \begin{eqnarray}
+	x^* = \text{arg} \min_x f_0(x)\\\text{thỏa mãn: } f_i(x) \leq 0, \quad i = 1,2,...,m \nonumber\\h_j(x) = 0, \quad j = 1,2,..., p \nonumber
+\end{eqnarray}
+Phát biểu bằng lời: Tìm giá trị của biến $x$ để tối thiểu hàm $f_0(x)$ trong số những giá trị $x$ thỏa mãn các điều kiện ràng buộc. Ta có bảng khái niệm và ký hiệu của bài toán tối ưu được trình bày trong bảng dưới.
+\begin{center}
+	\begin{tabular}{|c|l|l|}
+		\hline
+		\textbf{Ký hiệu}& \textbf{Ý nghĩa } \\
+		\hline
+		$x \in \mathbb{R}^n$ & biến tối ưu \\
+		\hline
+		$f_0: \mathbb{R}^n \to \mathbb{R}$ &hàm mục tiêu \\
+		\hline
+		$f_i(x) \leq 0$& bất đẳng thức ràng buộc \\
+		\hline
+		$f_i: \mathbb{R}^n \to \mathbb{R}$& hàm bất đẳng thức ràng buộc \\
+		\hline
+		$h_j(x) = 0$& đẳng thức ràng buộc \\
+		\hline
+		$h_j: \mathbb{R}^n \to \mathbb{R}$& hàm đẳng thức ràng buộc \\
+		\hline
+		$\mathcal{D} = \bigcap_{i=0}^m\text{dom}f_i \cap \bigcap_{j=1}^p\text{dom}h_j$& tập xác định\\
+		\hline
+	\end{tabular}
+
+\end{center}
+Ngoài ra:
+\begin{itemize}
+	\item Khi $m = p = 0$ thì bài toán (1.13) được gọi là bài toán tối ưu không ràng buộc.
+	\item $\mathcal{D}$ là tập xác định, tức giao của tất cả các tập xác định của mọi hàm số xuất hiện trong bài toán. Tập hợp các điểm thỏa mãn mọi điều kiện ràng buộc là một tập con của $\mathcal{D}$ được gọi là tập khả thi. Khi tập khả thi là một tập rỗng thì bài toán tối ưu (1.13) là bất khả thi. Một điểm nằm trong tập khả thi được gọi là điểm khả thi.
+	\item Giá trị tối ưu của bài toán tối ưu được định nghĩa là $$p^* = \inf\{f_0(x)|f_i(x) \leq 0, i = 1, ..., m; h_j(x) = 0, j=1,..., p\}$$
+	$p^*$ có thể nhận các giá trị $\pm \infty$. Nếu bài toán là bất khả thi, ta coi $p^* = + \infty$. Nếu hàm mục tiêu không bị chặn dưới, ta coi $p^* = -\infty$
+\end{itemize}
+\subsection{Điểm tối ưu và tối ưu địa phương}
+Một điểm $x^*$ được gọi là điểm tối ưu của bài toán (1.13) nếu $x^*$ là một điểm khả thi và $f_0(x^*) = p^*$. Tập hợp tất cả các điểm tối ưu được gọi là tập tối ưu. Nếu tập tối ưu khác rỗng, ta nói bài toán (1.13) giải được. Ngược lại, nếu tập tối ưu rỗng, ta nói giá trị tối ưu không thể đạt được.\\\\ \textit{Ví dụ:} Xét hàm mục tiêu $f(x) = \dfrac{1}{x}$ với ràng buộc $x>0$. Giá trị tối ưu của bài toán này là $p^* = 0$ nhưng tập tối ưu là một tập rỗng vì không có giá trị nào của $x$ để hàm mục tiêu đạt giá trị $p^*$. \\\\ Với hàm một biến, một điểm là cực tiểu/tối ưu địa phương của hàm số nếu tại đó hàm số đạt giá trị nhỏ nhất trong một  lân cận (vì lân cận này thuộc tập xác định của hàm số). Trong không gian một chiều, lân cận của một điểm được hiểu là tập các điểm cách điểm đó một khoảng rất nhỏ. Trong không gian nhiều chiều, ta gọi một điểm $x$ là tối ưu địa phương nếu  tồn tại một giá trị $R > 0$ sao cho 
+\begin{eqnarray}
+	f_0(x) = \inf\{f_0(z)|f_i(z)\leq 0, i =1,..., m, h_j(z) = 0, j=1,..., p, ||z-x||_2 \leq R\} \nonumber
+\end{eqnarray} 
+\chapter{Một số vấn đề về bài toán điều khiển tối ưu}
+\section{Dạng tổng quát của bài toán điều khiển tối ưu}
+Dạng tổng quát chung của các bài toán điều khiển tối ưu
+\begin{itemize}
+	\item[(1)] Có phương trình trạng thái là $$\dot{x} = f_i(t, x_1, ..., x_n, u_1, ..., u_m), \qquad i = 1, ..., n. $$ hoặc dạng vector $$\dot{x} = f(t,x,u),$$ với $$x = \begin{bmatrix}
+	x_1 \\ \vdots \\ x_n
+	\end{bmatrix} \qquad \text{và} \qquad u = \begin{bmatrix}
+	u_1 \\ \vdots \\ u_m
+	\end{bmatrix}$$
+	\item[(2)] Trạng thái đầu tiên $x(0) =x_0 \in \mathbb{R}^n$, và trạng thái cuối cùng $x_1 \in \mathbb{R}^n$ có thể có hoặc không được cung cấp.
+	\item [(3)] Lớp $\Delta$ của các điều khiển được chấp nhận là tập tất cả các điều khiển $u$ trong giới hạn về vật lý của bài toán. Thông thường chúng ta được cung cấp một tập lồi, compact $\Omega \subset \mathbb{R}^m$ (tập giới hạn) và ta thấy $$\Delta = \{u = (u_1, ..., u_m): u_i \text { rời rạc liên tục và } u(t) \in \Omega\}$$
+	\item[(4)] Hàm mục tiêu so sánh hiệu quả của các điều khiển khác nhau. Thông thường: $$C(u) = \int_{0}^{t_1}f_0(t, x(t), u(t))dt,$$ với $f_0$ là một hàm thực, liên tục xác định và tích phân ở trên được hiểu là chúng ta lấy một điều khiển $u \in \Delta$, giải phương trình trạng thái và thu được $x$ tương ứng, tính $f_0$ như là một hàm của $t$, và thực hiện tích phân.\\\\ Nếu trạng thái kết thúc cho trước (gọi là bài toán cố định) khi đó $x(t_1) = x_1$. Cụ thể nếu $f_0 \equiv 1$ thì $C(u) = t$, và chúng ta có vấn đề tối thiểu thời gian. Nếu trạng thái kết thúc không được cho trước (gọi là bài toán tự do), khi đó $t_1$ là một thời gian cố định, và tích phân được thực hiện trong khoảng thời gian cố định $[0, t_1]$. Vấn đề tìm điều khiển tối ưu có thể được đưa ra: Tìm một điều khiển được chấp nhận $u^*$ làm tối thiểu hàm mục tiêu, tức là $$C(u^*) \leq C(u), \forall u \in \Delta$$ Khi đó, $u^*$ được gọi là điều khiển tối ưu.
+\end{itemize}
+
 	\section{Nguyên lý cực đại Pontryagin}
 	\subsubsection{Xét hệ điều khiển} \begin{equation}
 		\dot{x} = f(x, u), f: \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}^n, f = (f_1, ..., f_n)^T, f_i: \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}
@@ -123,38 +347,43 @@ Giả sử $V(x_1, t_1)$ là giá trị hàm mục tiêu tối ưu xuất phát 
 \textbf{Xét hệ điều khiển}
 \begin{eqnarray}
 	\dot{x}(t) &=& Ax(t) + Bu(t) \nonumber\\ x(0) &=& 0, \quad A \in \mathbb{R}^{n\times n}, B \in \mathbb{R}^{n\times m} \nonumber
-\end{eqnarray} Hàm mục tiêu $$C(u) = \dfrac{1}{2}x(T)^TSx(T) + \dfrac{1}{2}\int_{0}^{T}\Big[x(t)^TQx(t) + u(t)^TRu(t)\Big]dt$$ trong đó $Q, S \in \mathbb{R}^{n\times n}$ là các ma trận xác định không âm và $R \in \mathbb{R}^{m\times m}$ là ma trận xác định dương.\\\\ Giải phương trình Hamilton-Jacobi-Bellman cho bài toán này, ta tìm được $$u^*(x, t) = -R^{-1}B^T\nabla_xV(x, t)$$ trong đó $V(x, t)$ là nghiệm của phương trình
+\end{eqnarray} Hàm mục tiêu $$C(u) = \dfrac{1}{2}x(T)^TSx(T) + \dfrac{1}{2}\int_{0}^{T}\Big[x(t)^TQx(t) + u(t)^TRu(t)\Big]dt$$ trong đó $Q, S \in \mathbb{R}^{n\times n}$ là các ma trận xác định không âm và $R \in \mathbb{R}^{m\times m}$ là ma trận xác định dương.\\\\ Giải phương trình Hamilton-Jacobi-Bellman cho bài toán này, ta tìm được $$u^*(x, t) = -R^{-1}B^T\nabla_xV(x, t)$$ trong đó $V(x, t)$ là nghiệm của phương trình.
+\begin{eqnarray}
+	\dfrac{\partial V}{\partial t} = -\dfrac{1}{2}x^TQx - \frac{1}{2}\nabla_xVBR^{-1}B^T\nabla_xV + \nabla_xVBR^{-1}B^T\nabla_xV - \nabla_xVAx
+\end{eqnarray}
+Đặt  $$V(x, t) = \dfrac{1}{2}x^T(t)K(t)x(t),  K(t) \in \mathbb{R}^{n\times n}$$ Thay nghiệm này vào (2.5) ta được phương trình Riccati
+\begin{eqnarray}
+	\begin{cases}
+	\dot{K}(t) = -K(t)A - A^TK(t) + K(t)BR^{-1}B^TK(t) - Q(t) \\ K(T) = S
+	\end{cases}
+\end{eqnarray}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\chapter{Kiểm soát phản hồi trạng thái tối ưu}
+	\chapter{Điều khiển ngược trạng thái tối ưu}
 	\section{Nguyên tắc tối ưu}
-	Xem xét vấn đề kiểm soát tối ưu sau đây với thời gian cuối cố định $t_b$:\\\\Tìm một điều khiển chấp nhận được $u$: $[t_a, t_b] \to \Omega \subseteq \mathbb{R}^m$ với các ràng buộc \begin{eqnarray}
+	Xem xét vấn đề điều khiển tối ưu sau đây với thời gian cuối cố định $t_b$:\\\\Tìm một điều khiển chấp nhận được $u$: $[t_a, t_b] \to \Omega \subseteq \mathbb{R}^m$ với các ràng buộc \begin{eqnarray}
 		x(t_a) &=& x_a \nonumber \\ \dot{x}(t) &=& f(x(t), u(t), t) \qquad \text{ với } t \in [t_a, t_b] \nonumber \\ x(t_b)&\in& S \subseteq \mathbb{R}^n \nonumber
 	\end{eqnarray} sao cho hàm mục tiêu đạt giá trị nhỏ nhất. $$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t),u(t), t)dt$$
-	Giả sử rằng chúng ta đã tìm thấy giải pháp tối ưu toàn cục duy nhất với quỹ đạo điều khiển tối ưu $u_0$: $[t_a, t_b] \to \mathbb{R}^m$ và quỹ đạo trạng thái tối ưu tương ứng $x_0$: $[t_a, t_b] \to \mathbb{R}^n$ thỏa mãn $x_0 (t_a) = x_a$ và $x_0(t_b) \in S$.
-	\\\\Bây giờ, chọn một thời gian tùy ý $\tau \in(t_a, t_b)$ và chia đôi vấn đề kiểm soát tối ưu ban đầu thành một vấn đề kiểm soát tối ưu trước đó trong khoảng thời gian $[t_a,\tau]$ và một vấn đề tối ưu thành công trong khoảng thời gian $[\tau, t_b]$.\\\\Vấn đề kiểm soát tối ưu tiền đề là:\\Tìm một điều khiển được chấp nhận $u$: $[t_a, \tau] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ được chuyển từ trạng thái ban đầu $$x(t_a) = x_a$$ đến trạng thái cố định cuối cùng $$x(\tau) = x^0(\tau)$$ tại thời điểm cuối cùng cố định $\tau$ và như vậy có hàm chi phí $$J(u) = \int_{t_a}^{\tau}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\Vấn đề kiểm soát tối ưu thành công là:\\
+	Giả sử rằng chúng ta đã tìm thấy giải pháp tối ưu toàn cục duy nhất với quỹ đạo điều khiển tối ưu $u^o$: $[t_a, t_b] \to \mathbb{R}^m$ và quỹ đạo trạng thái tối ưu tương ứng $x^o$: $[t_a, t_b] \to \mathbb{R}^n$ thỏa mãn $x^o (t_a) = x_a$ và $x^o(t_b) \in S$.
+	\\\\Bây giờ, chọn một thời gian tùy ý $\tau \in(t_a, t_b)$ và chia đôi vấn đề kiểm soát tối ưu ban đầu thành một vấn đề kiểm soát tối ưu tiền đề trong khoảng thời gian $[t_a,\tau]$ và một vấn đề tối ưu thành công trong khoảng thời gian $[\tau, t_b]$.\\\\Vấn đề kiểm soát tối ưu tiền đề là:\\Tìm một điều khiển được chấp nhận $u$: $[t_a, \tau] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ được chuyển từ trạng thái ban đầu $$x(t_a) = x_a$$ đến trạng thái cố định cuối cùng $$x(\tau) = x^o(\tau)$$ tại thời điểm cuối cùng cố định $\tau$ và như vậy có hàm chi phí $$J(u) = \int_{t_a}^{\tau}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\Vấn đề kiểm soát tối ưu thành công là:\\
 	Tìm một điều khiển được chấp nhận $u$: $[\tau, t_b] \to \Omega$, sao cho hệ thống động $$\dot{x}(t) = f(x(t),u(t),t)$$ 
-	được chuyển từ trạng thái ban đầu nhất định $$x(\tau) = x^0(\tau)$$ đến trạng thái cuối cùng $$x(t_b) \in S$$ tại thời gian cuối cùng cố định $t_b$ và như vậy hàm chi phí $$J(u) = K(x(t_b)) + \int_{\tau}^{t_b}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\
+	được chuyển từ trạng thái ban đầu nhất định $$x(\tau) = x^o(\tau)$$ đến trạng thái cuối cùng $$x(t_b) \in S$$ tại thời gian cuối cùng cố định $t_b$ và như vậy hàm chi phí $$J(u) = K(x(t_b)) + \int_{\tau}^{t_b}L(x(t),u(t),t)dt$$ là nhỏ nhất.\\\\
 	\textbf{Định lý: Nguyên tắc tối ưu}
 	\begin{itemize}
 		\item[\textbf{1)}] Giải pháp tối ưu cho bài toán điều khiển tối ưu thành công trùng khớp với phần thành công của giải pháp tối ưu của bài toán ban đầu.
 		\item[\textbf{2)}] Giải pháp tối ưu cho vấn đề kiểm soát tối ưu tiền đề trùng khớp với phần tiền đề của giải pháp tối ưu cho vấn đề ban đầu. 
 	\end{itemize}
-	\textbf{Chứng minh}
-	\begin{itemize}
-		\item[\textbf{1)}] Mặt khác, kết hợp giải pháp tối ưu của vấn đề kiểm soát tối ưu thành công với phần tiền đề của giải pháp cho vấn đề kiểm soát tối ưu ban đầu sẽ mang lại giải pháp tốt hơn cho vấn đề sau.
-		\item[\textbf{2)}] Mặt khác, kết hợp giải pháp tối ưu của vấn đề kiểm soát tối ưu tiền đề với phần thành công của giải pháp cho vấn đề kiểm soát tối ưu ban đầu sẽ mang lại giải pháp tốt hơn cho vấn đề sau.
-	\end{itemize}
-	Về mặt khái niệm, chúng ta có thể giải quyết vấn đề điều khiển tối ưu thành công cho bất kỳ trạng thái ban đầu tùy ý $x\in \mathbb{R}^n$ tại thời điểm ban đầu $\tau$, thay vì chỉ cho giá trị cố định $x_0(\tau)$. Hơn nữa, chúng ta có thể lặp lại quá trình này trong một thời gian ban đầu tùy ý $t \in [t_a, t_b]$, thay vì chỉ cho giá trị được chọn $\tau$ ban đầu. Chỉ tập trung vào giá trị tối ưu của hàm chi phí trong tất cả các trường hợp này mang lại gọi là hàm chi phí tối ưu $$T(x,t) = \min_{u(.)} \bigg\{K(x(t_b)) + \int_{t}^{t_b}L(x(t),u(t),t)dt \big | x(t) = x \bigg\}$$
+	\noindent
+	Về mặt khái niệm, chúng ta có thể giải quyết vấn đề điều khiển tối ưu thành công cho bất kỳ trạng thái ban đầu tùy ý $x\in \mathbb{R}^n$ tại thời điểm ban đầu $\tau$, thay vì chỉ cho giá trị cố định $x^o(\tau)$. Hơn nữa, chúng ta có thể lặp lại quá trình này trong một thời gian ban đầu tùy ý $t \in [t_a, t_b]$, thay vì chỉ cho giá trị được chọn $\tau$ ban đầu. Chỉ tập trung vào giá trị tối ưu của hàm chi phí trong tất cả các trường hợp này mang lại gọi là hàm chi phí tối ưu $$T(x,t) = \min_{u(.)} \bigg\{K(x(t_b)) + \int_{t}^{t_b}L(x(t),u(t),t)dt \big | x(t) = x \bigg\}$$
 	\textbf{Bổ đề}
 	\begin{enumerate}
 		\item[\textbf{3)}] Giải pháp tối ưu cho vấn đề kiểm soát tối ưu tiền đề với một
 		trạng thái cuối cùng tự do tại thời điểm cuối cùng cố định $\tau$ và với giá trị hàm $$J = T(x(\tau), \tau) + \int_{t_a}^{\tau}L(x(t), u(t), t)dt$$ trùng với phần tiền đề của giải pháp tối ưu cho vấn đề kiểm soát tối ưu ban đầu.
-		\item[\textbf{4)}] Vector chi phí tối ưu $\lambda^0(\tau)$ tương ứng với độ dốc của hàm chi phí tối ưu để đi (cost-to-gofunction), tức là, $$\lambda^0(\tau) = \nabla _xT(x^0(\tau), \tau) \text{ với tất cả } \tau \in [t_a, t_b]$$ với điều kiện $T(x, \tau) $ là liên tục khác biệt đối với $x$ tại $x^0(\tau)$
+		\item[\textbf{4)}] Vector chi phí tối ưu $\lambda^o(\tau)$ tương ứng với độ dốc của hàm chi phí tối ưu, tức là, $$\lambda^o(\tau) = \nabla _xT(x^o(\tau), \tau) \text{ với tất cả } \tau \in [t_a, t_b]$$ với điều kiện $T(x, \tau) $ là liên tục khác biệt đối với $x$ tại $x^o(\tau)$
 	\end{enumerate}
 	\section{Học thuyết Hamilton-Jacobi-Bellman}
 	\subsection{Điều kiện đủ cho giải pháp tối ưu}
 	Xem xét công thức thông thường của một vấn đề kiểm soát tối ưu với trạng thái cuối cùng không xác định tại thời điểm cuối cùng cố định: \\\\ Tìm một điều khiển liên tục từng phần $u : [t_a, t_b] \to \Omega$ sao cho hệ động lực $$\dot{x}(t) = f(x(t), u(t), t)$$ được chuyển từ trạng thái ban đầu $x(t_a) = x_a$ sang trạng thái cuối cùng tùy ý tại thời điểm cuối cùng cố định và sao cho hàm chi phí $$J(u) = K(x(t_b)) + \int_{t_a}^{t_b}L(x(t), u(t), t)dt$$ đạt min.\\\\
-	Xây dựng hàm Halminton với $\lambda_0^0 = 1$ $$H(x, u \lambda, t) = L(x, u, t) + \lambda^Tf(x, u, t)$$
+	Xây dựng hàm Halminton với $\lambda_0^o = 1$ $$H(x, u, \lambda, t) = L(x, u, t) + \lambda^Tf(x, u, t)$$
 	Xét tập hợp $n + 1$ chiều $Z = X \times [a, b] \subseteq \mathbb{R}^n \times \mathbb{R}$, trong đó $X$ là tập con (hy vọng rất lớn) của không gian trạng thái $\mathbb{R}^n$ với bên trong không trống và $[a, b]$ là tập hợp con của trục thời gian chứa ít nhất khoảng $[t_a, t_b]$, như trong Hình 2.1.
 	\begin{figure}[h]
 		\centering
@@ -171,19 +400,19 @@ Giả sử $V(x_1, t_1)$ là giá trị hàm mục tiêu tối ưu xuất phát 
 	\end{enumerate}
 		\textit{Nhận xét:}
 		\begin{itemize}
-			\item Hàm $\hat{u}$ được gọi là điều khiển H thu nhỏ.
-			\item Khigiar thuyết b được thỏa mãn, hàm Hamilton H được gọi là bình thường. 
+			\item Hàm $\hat{u}$ được gọi là điều khiển H-tối thiểu.
+			\item Khi giả thuyết b được thỏa mãn, hàm Hamilton H được gọi là "bình thường". 
 		\end{itemize}
 		\textbf{Định lý Hamilton-Jacobi-Bellman} \\\\ Nếu các giả thuyết a, b, và c được thỏa mãn và nếu nếu quỹ đạo điều khiển $\hat{u}(.)$ và quỹ đạo trạng thái $\hat{x}(.)$ được tạo bởi $\hat{u}(.)$ có liên quan thông qua $$\hat{u}(t) = \tilde{u}\big(\hat{x}(t), \nabla_xT(\hat{x}(t), t), t\big), $$ 
-		thì giải pháp $\hat{u}, \hat{x}$ là tối ưu đối với tất cả các quỹ đạo trạng thái x được tạo bởi một quỹ đạo kiểm soát được chấp nhận $u$, không rời $X$. Hơn nữa, $T(x, t)$ là hàm chi phí tối ưu để đi (cost-to-go function).
+		thì giải pháp $\hat{u}, \hat{x}$ là tối ưu đối với tất cả các quỹ đạo trạng thái x được tạo bởi một quỹ đạo kiểm soát được chấp nhận $u$, không rời $X$. Hơn nữa, $T(x, t)$ là hàm chi phí tối ưu.
 		\\\\
 		\textbf{Bổ đề} \\\\ Nếu $Z = \mathbb{R}^n \times [t_a, t_b]$ thì giải pháp $\hat{u}, \hat{x}$ là tối ưu toàn cục.
 		\subsection{Luận điểm hợp lý về lý thuyết HJB}
 		Chúng ta có các sự kiện sau đây:
 		\begin{enumerate}
-			\item [\textbf{1)}] Nếu hàm Hamilton H bình thường, chúng ta có duy nhất sau
+			\item [\textbf{1)}] Nếu hàm Hamilton H "bình thường", chúng ta có duy nhất sau
 			H-tối thiểu hóa điều khiển tối ưu: $$u^o(t) = \tilde{u}\big(x^o(t), \lambda^o(t), t\big)$$ 
-			\item [\textbf{2)}] Hàm chi phí tối ưu $T(x, t)$ rõ ràng phải thỏa mãn điều kiện biên $$T(x, t_b) = K(x)$$ vì tại thời điểm cuối cùng $t_b$, giá trị hàm giá chỉ bảo gồm trạng thái cuối cùng $K(x)$.\item[\textbf{3)}] Nguyên lý tối ưu đã chỉ ra rằng chi phí tối ưu $\lambda^o(t)$ tương ứng với độ dốc của hàm chi phí tối ưu, $$\lambda^o(t) = \nabla_xT(x^o(t),t), $$ bất cứ đâu $T(x^o(t), t)$ liên tục khác biệt đối với x tại $x = x^o(t)$.
+			\item [\textbf{2)}] Hàm chi phí tối ưu $T(x, t)$ rõ ràng phải thỏa mãn điều kiện biên $$T(x, t_b) = K(x)$$ vì tại thời điểm cuối cùng $t_b$, giá trị hàm giá chỉ bao gồm trạng thái cuối cùng $K(x)$.\item[\textbf{3)}] Nguyên lý tối ưu đã chỉ ra rằng chi phí tối ưu $\lambda^o(t)$ tương ứng với độ dốc của hàm chi phí tối ưu, $$\lambda^o(t) = \nabla_xT(x^o(t),t), $$ bất cứ đâu $T(x^o(t), t)$ liên tục khác biệt đối với $x$ tại $x = x^o(t)$.
 			\item [\textbf{4)}] Cùng với một quỹ đạo được chấp nhận tùy ý $u(.)$,$x(.)$, tương ứng
 			hàm chi phí tối ưu $$J(x(t), t) = K(x(t_b)) + \int_{t}^{t_b}L(x(t), u(t), t)dt$$ tiến hóa theo phương trình vi phân sau: $$\frac{dJ}{dt} = \frac{\partial J}{\partial x}\dot{x} + \frac{\partial J}{\partial t} = \lambda^Tf(x, u, t) + \frac{\partial J}{\partial t} = -L(x, u, t)$$ Vì thế, $$\frac{\partial J}{\partial t} = -\lambda^Tf(x, u, t) - L(x, u, t) = -H(x, u, \lambda, t)$$ Điều này tương ứng với phương trình vi phân từng phần của hàm chi phí tối ưu $T(x, t)$, ngoại trừ luật điều khiển tối ưu chưa được áp dụng vào. 
 		\end{enumerate}
@@ -200,20 +429,20 @@ Giả sử $V(x_1, t_1)$ là giá trị hàm mục tiêu tối ưu xuất phát 
 	\begin{eqnarray}
 		0 &=& \frac{\partial T}{\partial t} + H(x, \tilde{u}(x, \nabla_xT,t),\nabla_xT,t) \nonumber \\ &=& \frac{\partial T}{\partial t} + \frac{1}{2}\Big(x^TQx-x^TNR^{-1}N^Tx-\nabla_xT^TBR^{-1}B^T\nabla_xT \nonumber \\ &+& \nabla_xT^T[A-BR^{-1}N^T]x+x^T[A-BR^{-1}N^T]^T\nabla_xT\Big) \nonumber
 	\end{eqnarray} với điều kiện biên $$T(x, t_b) = \frac{1}{2}x^TFx.$$
-	Rõ ràng, một giả định cho hàm chi phí tối ưu $T(x, t)$ là bậc hai trong $x$ nên hoạt động. Điều này dẫn đến một phương trình vi phân từng phần trong đó tất cả các số hạng là bậc hai theo x.\textit{\textbf{(...)}} $$T(x, t) = \frac{1}{2}x^TK(t)x$$ dẫn đến $$\nabla_xT(x, t) = K(t)x \text{ và } \frac{\partial T(x, t)}{\partial t} = \frac{1}{2}x^T \dot{K}(t)x$$ Dạng cuối cùng sau đây của phương trình vi phân từng phần Hamilton-Jacobi-Bellman thu được:
+	Rõ ràng, một giả định cho hàm chi phí tối ưu $T(x, t)$ là bậc hai của $x$ nên hoạt động. Điều này dẫn đến một phương trình vi phân từng phần trong đó tất cả các số hạng là bậc hai theo $x$. $$T(x, t) = \frac{1}{2}x^TK(t)x$$ dẫn đến $$\nabla_xT(x, t) = K(t)x \text{ và } \frac{\partial T(x, t)}{\partial t} = \frac{1}{2}x^T \dot{K}(t)x$$ Dạng cuối cùng sau đây của phương trình vi phân từng phần Hamilton-Jacobi-Bellman thu được:
 	\begin{eqnarray}
 		\frac{1}{2}x^T \Big(\dot{K}(t) + Q - NR^{-1}N^T - K(t)BR^{-1}B^TK(t) \nonumber \\ + K(t)[A-BR^{-1}N^T] + [A - BR^{-1}N^T]^TK(t)\Big)x = 0 \nonumber\\
 		T(x, t_b) = \frac{1}{2}x^TFx \nonumber
 	\end{eqnarray}
 	Do đó, chúng tôi nhận được luật kiểm soát phản hồi trạng thái tối ưu sau: $$u(t) = -R^{-1}(t)[B^T(t)K(t) + N^T(t)]x(t)$$
-	trong đó ma trận đối xứng  và (nửa) xác định dương phải được tính toán trước bằng cách giải phương trình vi phân Riccati ma trận
+	trong đó ma trận đối xứng và (nửa) xác định dương $K(t)$ phải được tính toán trước bằng cách giải phương trình vi phân Riccati:
 \begin{eqnarray}
 	\dot{K}(t) &=& -[A(t) - B(t)R^{-1}(t)N^T(t)]^TK(t) - K(t)[A(t) - B(t)R^{-1}(t)N^T(t)] \nonumber \\ &&-K(t)B(t)R^{-1}(t)B^T(t)K(t) - Q(t) + N(t)R^{-1}(t)N^T(t) \nonumber
 \end{eqnarray} với điều kiện biên $$K(t_b) = F$$
 \subsection{Trường hợp bất biến theo thời gian với không gian vô hạn}
 Trong phần này, các vấn đề điểu khiển tối ưu bất biến theo thời gian với vector điều khiển không giới hạn trạng thái $u(t) \in \mathbb{R}^m$, trạng thái tự do cuối cùng $x(t_b)$ tại thời điểm cuối cùng vô hạn $t_b = \infty$ được xem xét.\\\\Phát biểu chung nhất của vấn đề kiểm soát tối ưu này là:\\\\ 
-Tìm một điều khiển liên tục từng phần $u: [0, \infty) \to \mathbb{R}^m$, sao cho hệ thống động hoàn toàn có thể điều khiển $$\dot{x}(t) = f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu nhất định $$x(0) = x_a $$ đến trạng thái cuối cùng tùy ý $x(\infty) \in \mathbb{R}^n$ tại thời điểm cuối cùng vô hạn và hàm chi phí $$J(u) = \int_{0}^{\infty}L(x(t), u(t))dt$$ là nhỏ nhất và đạt được một giá trị tối ưu hữu hạn.	\\\\ Để có một vấn đề được đặt ra, các biến của vấn đề nên được chọn theo cách sao cho trạng thái cân bằng tĩnh cố định ở $x = 0$ và có thể đạt được bằng điều khiển biến mất không đối xứng $u(t) \to 0$ như $t \to \infty$. Do đó, $f(0,0) = 0$ là bắt buộc. Hơn nữa, chọn tích phân $L$ của hàm chi phí với $L(0, 0) = 0$ và sao cho nó lồi hoàn toàn trong cả $x$ và $u$ và sao cho $L (x, u)$ tăng mà không bị ràng buộc, với tất cả $(x, u)$ trong đó $x$, hoặc $u$, hoặc cả $x$ và $u$ đi đến vô cùng theo bất kỳ hướng nào trong không gian trạng thái $\mathbb{R}^n$ hoặc không gian điều khiển $\mathbb{R}^m$, tương ứng. Tất nhiên, chúng ta giả sử rằng cả $f$ và $L$ ít nhất một lần liên tục khác nhau đối với $x$ và $u$. \\\\
-Rõ ràng, trong trường hợp bất biến theo thời gian với không gian vô hạn, hàm chi phí tối ưu $T(x, t)$ là bất biến theo thời gian, tức là, $$T(x, t) \equiv T(x) ,$$ bởi vì giải pháp tối ưu là thay đổi bất biến (?). Không quan trọng hệ thống bắt đầu với trạng thái ban đầu $x_a$ tại thời điểm ban đầu 0 hay với cùng trạng thái ban đầu $x_a$ tại một số thời điểm bắt đầu $t_a \neq 0.$ \\\\ Do đó, phương trình vi phân từng phần Hamilton-Jacobi-Bellman $$\frac{\partial T(x, t)}{\partial t} + H\Big[x, \tilde{u}\Big(x, \nabla_xT(x,t),t\Big), \nabla_xT(x, t), t\Big] = 0$$
+Tìm một điều khiển liên tục từng phần $u: [0, \infty) \to \mathbb{R}^m$, sao cho hệ thống động hoàn toàn có thể điều khiển $$\dot{x}(t) = f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu nhất định $$x(0) = x_a $$ đến trạng thái cuối cùng tùy ý $x(\infty) \in \mathbb{R}^n$ tại thời điểm cuối cùng vô hạn và hàm chi phí $$J(u) = \int_{0}^{\infty}L(x(t), u(t))dt$$ là nhỏ nhất và đạt được một giá trị tối ưu hữu hạn.	\\\\ Để có vấn đề được đặt ra, các biến của vấn đề nên được chọn theo cách sao cho trạng thái cân bằng tĩnh cố định ở $x = 0$ và có thể đạt được bằng điều khiển biến mất không đối xứng $u(t) \to 0$ như $t \to \infty$. Do đó, $f(0,0) = 0$ là bắt buộc. Hơn nữa, chọn tích phân $L$ của hàm chi phí với $L(0, 0) = 0$ và sao cho nó lồi hoàn toàn trong cả $x$ và $u$ và sao cho $L (x, u)$ tăng mà không bị ràng buộc, với tất cả $(x, u)$ trong đó $x$, hoặc $u$, hoặc cả $x$ và $u$ đi đến vô cùng theo bất kỳ hướng nào trong không gian trạng thái $\mathbb{R}^n$ hoặc không gian điều khiển $\mathbb{R}^m$, tương ứng. Tất nhiên, chúng ta giả sử rằng cả $f$ và $L$ ít nhất một lần liên tục khác nhau đối với $x$ và $u$. \\\\
+Rõ ràng, trong trường hợp bất biến theo thời gian với không gian vô hạn, hàm chi phí tối ưu $T(x, t)$ là bất biến theo thời gian, tức là, $$T(x, t) \equiv T(x) ,$$ bởi vì giải pháp tối ưu là bất biến. Không quan trọng hệ thống bắt đầu với trạng thái ban đầu $x_a$ tại thời điểm ban đầu 0 hay với cùng trạng thái ban đầu $x_a$ tại một số thời điểm bắt đầu $t_a \neq 0.$ \\\\ Do đó, phương trình vi phân từng phần Hamilton-Jacobi-Bellman $$\frac{\partial T(x, t)}{\partial t} + H\Big[x, \tilde{u}\Big(x, \nabla_xT(x,t),t\Big), \nabla_xT(x, t), t\Big] = 0$$
 suy biến thành phương trình vi phân từng phần $$H\big[x, \tilde{u}\big(x, \nabla_xT(x)\big), \nabla_xT(x)\big] = 0$$ và mất điều kiện biên cũ $T(x, t_b) = K(x)$.\\\\ Trong trường hợp đặc biệt của hệ động lực bậc 1 $(n = 1)$, đây là một phương trình vi phân thông thường có thể được tích hợp bằng điều kiện biên $J(0) = 0$.
 \\\\ Đối với các hệ thống động có bậc cao hơn $(n \geq 2)$, có sẵn các kỹ thuật giải quyết vấn đề thay thế sau:
 \begin{itemize}
@@ -226,23 +455,24 @@ suy biến thành phương trình vi phân từng phần $$H\big[x, \tilde{u}\bi
 \textbf{Ví dụ}\\\\ Giả sử rằng chúng ta đã giải quyết vấn đề điều chỉnh LQ sau đây cho một hệ thống động không ổn định: \begin{eqnarray}
 	\dot{x}(t) &=& ax(t)+bu(t) \text{ với } a > 0, b \neq 0 \nonumber \\ x(0) &=& x_a \nonumber\\ J(u) &=& \frac{1}{2}\int_{0}^{\infty}\big(qx^2(t) + u^2(t)\big)dt \text{ với } q > 0 \nonumber
 \end{eqnarray}
-Kết quả là bộ điều khiển phản hồi trạng thái tuyến tính $$u(t) = -gx(t)$$ với $$g = bk = \frac{a + a\sqrt{1+\frac{b^2q}{a^2}}}{b}$$ Bây giờ, chúng ta muốn thay thế bộ điều khiển tuyến tính này bằng một bộ điều khiển phi tuyến cho các giá trị lớn của $|x|$, tức là, trong đó cho thấy một hành vi bão hòa phù hợp, nhưng mà vẫn giữ được "độ cứng" của bộ điều khiển LQ cho các tín hiệu nhỏ $x$. Lưu ý rằng, do sự bất ổn của nhà máy, điều khiển không được thấm vào một giá trị tối đa liên tục cho sự kiểm soát. Thay vào đó, chỉ có thể thấm vào một bộ điều khiển tuyến tính "mềm hơn" của dạng $u = - g_{\infty} x$ cho  $|x|$ lớn với $g _{\infty} > a/b$. \\\\ Để đạt được mục tiêu này, hàm chi phí được sửa đổi như sau: $$J(u) = \frac{1}{2}\int_{0}^{\infty} \big(qx^2(t) + u^2(t) + \beta u^4(t)\big)dt \text{ với } \beta > 0.$$
+Kết quả là bộ điều khiển phản hồi trạng thái tuyến tính $$u(t) = -gx(t)$$ với $$g = bk = \frac{a + a\sqrt{1+\frac{b^2q}{a^2}}}{b}$$ 
+Bây giờ, chúng ta muốn thay thế bộ điều khiển tuyến tính này bằng một bộ điều khiển phi tuyến cho các giá trị lớn của $|x|$, tức là, trong đó cho thấy một hành vi bão hòa phù hợp, nhưng mà vẫn giữ được "độ cứng" của bộ điều khiển LQ cho các tín hiệu nhỏ $x$. Lưu ý rằng, do sự bất ổn của hệ thống, điều khiển không được bão hòa vào một giá trị tối đa không đổi cho điều khiển. Thay vào đó, chỉ có thể bão hòa vào một bộ điều khiển tuyến tính "mềm hơn" của dạng $u = - g_{\infty} x$ cho  $|x|$ lớn với $g _{\infty} > a/b$. \\\\ Để đạt được mục tiêu này, hàm chi phí được sửa đổi như sau: $$J(u) = \frac{1}{2}\int_{0}^{\infty} \big(qx^2(t) + u^2(t) + \beta u^4(t)\big)dt \text{ với } \beta > 0.$$
 Theo \textbf{b}, ta có 
 \begin{eqnarray}
 	H(x, u, \lambda) &=& \frac{q}{2}x^2 + \frac{1}{2}u^2 + \frac{\beta}{2}u^4 + \lambda ax + \lambda bu = 0 \nonumber \\ \frac{\partial H}{\partial u} &=& u + 2\beta u^3 + \lambda b = 0. \nonumber
 \end{eqnarray} Loại bỏ $\lambda$ mang lại luật kiểm soát phản hồi trạng thái tối ưu: $$3\beta u^4 + \frac{2\beta a}{b}xu^3 + u^2 + \frac{2a}{b}xu - qx^2 = 0$$ Điều khiển phản hồi trạng thái tối ưu $u(x)$ thu được bằng cách giải phương trình này: $$u(x) = \arg \Bigg\{3\beta u^4 + \frac{4\beta a}{b}xu^3 + u^2 + \frac{2a}{b}xu - qx^2 = 0 \Bigg| \begin{matrix}
 u<-\frac{a}{b}x \quad \text{ với } x > 0\\ u = 0 \quad \text{ với } x = 0 \\ u > -\frac{a}{b}x \text{ với } x < 0
-\end{matrix}\Bigg\}$$ Đặc tính tín hiệu nhỏ giống với đặc tính của bộ điều chỉnh LQ vì các số hạng thứ tư $u^4$ và $xu^3$ không đáng kể. Ngược lại, đối với đặc tính tín hiệu lớn, các thuật ngữ bậc bốn chiếm ưu thế và các thuật ngữ bậc hai $u^2$, $xu$ và $x^2$ là không đáng kể. Do đó, đặc tính tín hiệu lớn là $$u \approx \frac{4a}{3b}x$$ Trong hình 2.2, luật điều khiển tối ưu phi tuyến được mô tả cho ví dụ trong đó $a = 1, b = 1, q = 8$ và $\beta = 1$ với bộ điều chỉnh LQ $g = 4$ và mức tăng tín hiệu lớn $g_{\infty} = - \frac{4}{3}$.
+\end{matrix}\Bigg\}$$ Đặc tính tín hiệu nhỏ giống với đặc tính của bộ điều chỉnh LQ vì các số hạng bậc bốn $u^4$ và $xu^3$ không đáng kể. Ngược lại, đối với đặc tính tín hiệu lớn, các số hạng bậc bốn chiếm ưu thế và các số hạng bậc hai $u^2$, $xu$ và $x^2$ là không đáng kể. Do đó, đặc tính tín hiệu lớn là $$u \approx \frac{4a}{3b}x$$ Trong hình 2.2, luật điều khiển tối ưu phi tuyến được mô tả cho ví dụ trong đó $a = 1, b = 1, q = 8$ và $\beta = 1$ với bộ điều chỉnh LQ $g = 4$ và mức tăng tín hiệu lớn $g_{\infty} = - \frac{4}{3}$.
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=.8]{hinh2ct.png}
+	\includegraphics[scale=.6]{hinh2ct.png}
 	\caption{Luật điều khiển phi tuyến tối ưu}
 \end{figure}\\\\
-Các đầu đọc nghiêng (the inclined reader is invited) được mời để xác minh rằng thay thế $\beta u^4$ trong hàm chi phí $\beta u^{2k}$ với $k \geq 2$ dẫn đến kết quả là mức tăng trưởng lớn $$u\approx -\frac{2ka}{(2k-1)b}x$$
+Thay thế $\beta u^4$ trong hàm chi phí bằng $\beta u^{2k}$ với $k \geq 2$ dẫn đến kết quả $$u\approx -\frac{2ka}{(2k-1)b}x$$
 
 \section{Xấp xỉ điều khiển tối ưu}
 Trong hầu hết các trường hợp, không tìm thấy giải pháp phân tích nào của phương trình vi phân từng phần Hamilton-Jacobi-Bellman. Hơn nữa, việc giải quyết nó bằng số có thể cực kỳ cồng kềnh.\\\\
-Do đó, một phương pháp được trình bày ở đây cho phép tìm các kết quả gần đúng cho luật kiểm soát phản hồi trạng thái cho một vấn đề kiểm soát tối ưu bất biến theo thời gian với không gian vô hạn.\\\\ Chúng ta hãy xem xét một vấn đề kiểm soát tối ưu bất biến theo thời gian với một không gian vô hạn cho một hệ động lực phi tuyến với hàm chi phí không bậc hai, được cấu trúc như sau: \\\\ Tìm một luật điều khiển phản hồi trạng thái tối ưu bất biến theo thời gian $u$: $R^n \to R^m$, sao cho hệ thống động $$\dot{x}(t) = F(x(t), u(t)) = Ax(t) + Bu(t) + f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu $x(0) = x_a$ sang trạng thái cân bằng x = 0 tại thời điểm cuối cùng vô hạn sao cho hàm chi phí \begin{eqnarray}
+Do đó, một phương pháp được trình bày ở đây cho phép tìm các kết quả gần đúng cho luật kiểm soát phản hồi trạng thái cho một vấn đề kiểm soát tối ưu bất biến theo thời gian với không gian vô hạn.\\\\ Chúng ta hãy xem xét một vấn đề kiểm soát tối ưu bất biến theo thời gian với một không gian vô hạn cho một hệ động lực phi tuyến với hàm chi phí không bậc hai, được cấu trúc như sau: \\\\ Tìm một luật điều khiển phản hồi trạng thái tối ưu bất biến theo thời gian $u$: $\mathbb{R}^n \to \mathbb{R}^m$, sao cho hệ thống động $$\dot{x}(t) = F(x(t), u(t)) = Ax(t) + Bu(t) + f(x(t), u(t))$$ được chuyển từ trạng thái ban đầu $x(0) = x_a$ sang trạng thái cân bằng $x = 0$ tại thời điểm cuối cùng vô hạn sao cho hàm chi phí \begin{eqnarray}
 	J(u) &=& \int_{0}^{\infty}L(x(t), u(t))dt \nonumber \\
 	&=& \int_{0}^{\infty}\Big(\frac{1}{2}x^T(t)Qx(t) + x^T(t)Nu(t) + \frac{1}{2}u^T(t)Ru(t) + \ell(x(t), u(t)) \Big)dt \nonumber 
 \end{eqnarray} đạt giá trị nhỏ nhất.
@@ -262,7 +492,7 @@ Trong vấn đề này, người ta cho rằng các điều kiện sau được 
 \frac{\partial f_1}{\partial u_1} & \cdots & \frac{\partial f_1}{\partial u_m}\\ \vdots && \vdots \\ \frac{\partial f_n}{\partial u_1} &\cdots& \frac{\partial f_n}{\partial u_m}
 \end{bmatrix}$$
 Chú ý rằng kết quả của một vector hàng là đạo hàm vô hướng của hàm $f$.
-\subsubsection{Sorting Powers (Phân loại theo lũy thừa (?))} Trong các hàm đa thức, chúng ta tổng hợp các thuật ngữ có cùng công suất (the same power) như sau: \begin{eqnarray}
+\subsubsection{Sắp xếp theo lũy thừa} Trong các hàm đa thức, chúng ta tổng hợp các thuật ngữ có cùng công suất (the same power) như sau: \begin{eqnarray}
 	f(x, u) &=& f^{(2)}(x, u) + f^{(3)}(x, u) + f^{(4)}(x, u)\cdots \nonumber \\
 	\ell(x, u) &=& \ell^{(3)}(x, u) + \ell^{(4)}(x, u) + \ell^{(5)}(x, u) + \cdots \nonumber \\
 	T(x) &=& T^{(2)}(x) + T^{(3)}(x) + T^{(4)}(x) + \cdots \nonumber \\ u^o(x) &=& u^{o(1)}(x) + u^{o(2)}(x) + u^{o(3)}(x) + \cdots \nonumber .
@@ -275,12 +505,12 @@ Lưu ý thực tế sau đây cho đạo hàm của hàm đối với đối s�
 Trong ví dụ trước, chúng ta nhận được
 $$\ell_u^{(2)}(x, u) = \frac{\partial\ell^{(3)}(x, u)}{\partial u} = \beta x^2 + 2\gamma xu + 3\delta u^2.$$ Từ bây giờ, chúng ta viết $$T_x(x) = T_x^{[2]}(x) + T_x^{[3]}(x) + T_x^{[4]}(x) + \cdots$$ thay vì $T_x^{(1)}(x) + T_x^{(2)}(x) + T_x^{(3)}(x) + \cdots$
 Nói chung, loại ký hiệu này sẽ được sử dụng trong phần tiếp theo. 
-\subsection{Phương pháp Lukes} Trong bước xấp xỉ đầu tiên, điều khiển tuyến tính $u^o(1)$ được xác định bằng cách giải bài toán điều chỉnh LQ cho hệ động lực tuyến tính và cho phần thuần phương trình bậc 2 của hàm chi phí. \\\\ Trong mỗi bước xấp xỉ bổ sung của phương pháp đệ quy Lukes, một số lũy thừa bổ sung được thêm vào luật phản hồi $u(x)$, trong khi một số lũy thừa bổ sung của xấp xỉ $f$ và $A$ được xử lý.\\\\ Như đã trình bày trong 2.2.4, hai phương trình sau phải được giải gần đúng trong mỗi bước xấp xỉ: \begin{eqnarray}
-	H &=& T_x(x)F(x, u) + L(x, u) = 0\\ H_u &=& T_x(x)F_u(x, u) + L_u(x, u)
+\subsection{Phương pháp Lukes} Trong bước xấp xỉ đầu tiên, điều khiển tuyến tính $u^o(1)$ được xác định bằng cách giải bài toán điều chỉnh LQ cho hệ động lực tuyến tính và cho phần thuần phương trình bậc 2 của hàm chi phí. \\\\ Trong mỗi bước xấp xỉ bổ sung của phương pháp đệ quy Lukes, một số lũy thừa bổ sung được thêm vào luật phản hồi $u(x)$, trong khi một số lũy thừa bổ sung của xấp xỉ $f$ và $A$ được xử lý.\\\\ Như đã trình bày trong 3.2.4, hai phương trình sau phải được giải gần đúng trong mỗi bước xấp xỉ: \begin{eqnarray}
+	H &=& T_x(x)F(x, u) + L(x, u) = 0\\ H_u &=& T_x(x)F_u(x, u) + L_u(x, u) = 0
 \end{eqnarray} Trong bài toán sắp tới, chúng ta có các phương trình sau: \begin{eqnarray}
 	H &=&T_x(x)[Ax+Bu+f(x, u)] + \frac{1}{2}x^TQx + x^TNu \nonumber\\ && + \frac{1}{2}u^TRu + \ell(x, u) = 0\\ H_u &=& T_x(x)(B + f_u(x, u)) + x^TN + u^TR + \ell_u(x, u) = 0
 \end{eqnarray}
-Giải phương trình (2.4) với $u^o$: \begin{equation}
+Giải phương trình (3.4) với $u^o$: \begin{equation}
 	u^{oT} = -[T_x(x)(B + f_u(x, u^o)) + x^TN + \ell_u(x, u^o)]R^{-1}
 \end{equation}
 \subsubsection{1$^\text{st}$ Approximation: LQ-Regulator} \begin{eqnarray}
@@ -292,7 +522,7 @@ Giải phương trình (2.4) với $u^o$: \begin{equation}
 	u^o(x) &=& u^{o(1)}(x) + u^{0(2)}(x)\nonumber \\ T_x(x) &=& T_x^{[2]}(x) + T_x^{[3]}(x) \nonumber
 \end{eqnarray}
 \begin{itemize}
-	\item[\textbf{a)}] Xác định $T_x^{[3]}(x)$: \\ Sử dụng (2.3): \begin{eqnarray}
+	\item[\textbf{a)}] Xác định $T_x^{[3]}(x)$: \\ Sử dụng (3.3): \begin{eqnarray}
 		0 &=& (T_x^{[2]} + T_x^{[3]})[Ax + B(u^{o(1)} + u^{o(2)}) + f(x, u^{o(1)} + u^{o(2)})] \nonumber \\ && + \text{ } \frac{1}{2}x^TQx + x^TN(u^{o(1)} + u^{o(2)}) + \frac{1}{2}(u^{o(1)} + u^{o(2)})^TR(u^{o(1)} + u^{o(2)}) \nonumber \\ && +\text{ } \ell(x, u^{o(1)} + u^{o(2)}) \nonumber
 	\end{eqnarray} Thuật ngữ khối: \begin{eqnarray}
 		0 &=& T_x^{[3]}[Ax+Bu^{o(1)}] + T_x^{[2]}[Bu^{o(2)}+f^{(2)}(x, u^{o(1)})] \nonumber \\ && + \text{ } x^TNu^{o(2)} + \frac{1}{2}u^{o(1)^T}Ru^{o(2)} + \frac{1}{2}u^{o(2)^T}Ru^{o(1)} + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ &=& T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}) \nonumber \\ && + \text{ } \underbrace{[T_x^{[2]}B + x^TN + u^{o(1)^T}R]}_{= \text{ } 0}u^{o(2)} \nonumber
@@ -301,14 +531,14 @@ Giải phương trình (2.4) với $u^o$: \begin{equation}
 	 	0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)}(x, u^{o(1)}) + \ell^{(3)}(x, u^{o(1)}).
 	 \end{equation}
 \item[\textbf{b)}] Xác định $u^{o(2)}(x)$:\\
-Sử dụng (2.5): \begin{eqnarray}
+Sử dụng (3.5): \begin{eqnarray}
 	(u^{o(1)} + u^{o(2)})^T = &-& \Big[(T_x^{[2]} + T_x^{[3]})(B+f_u(x, u^{o(1)} + u^{o(2)}) \nonumber \\ && + \text{ } x^TN + \ell_u(x, u^{o(1)} + u^{o(2)})\Big]R^{-1} \nonumber
 \end{eqnarray}
 Dạng bậc hai: \begin{equation}
 	u^{o(2)^T} = - \Big[T_x^{[3]}B + T_x^{[2]}f_u^{(1)}(x, u^{o(1)}) + \ell_u^{(2)}(x, u^{o(1)})\Big]R^{-1}
 \end{equation}
 \end{itemize}
-Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$ không tồn tại ở vế phải. Do đó đây là các phương trình với hai vế được tách rời. Phương trình (2.7) là phương trình xác định $u^{o(2)}$ - Bước này xuất hiện theo cách tương tự trong các bước xấp xỉ tiếp theo. 
+Chú ý rằng trong hai phương trình (3.6) và (3.7), $u^{o(2)}$ không tồn tại ở vế phải. Do đó đây là các phương trình với hai vế được tách rời. Phương trình (3.7) là phương trình xác định $u^{o(2)}$ - Bước này xuất hiện theo cách tương tự trong các bước xấp xỉ tiếp theo. 
 
 \subsubsection{$3^{\text{rd}}$ Approximation}
 \begin{eqnarray}
@@ -341,10 +571,10 @@ Chú ý rằng trong hai phương trình (2.6) và (2.7), $u^{o(2)}$ không tồ
 \end{itemize}
 Các công thức này được thỏa mãn với mọi $k \geq 2$ nếu giá trị của một tổng trống bằng 0.
 \subsection{Bộ điều khiển với đặc tính lũy tiến}
-Đối với hệ động lực bất biến theo thời gian tuyến tính theo thứ tự đầu tiên, chúng ta muốn thiết kế một điều khiển phản hồi trạng thái bất biến theo thời gian $u(x)$, đặc tính của nó là siêu tuyến tính, tức là $u(x)$ là lũy tiến cho các giá trị lớn hơn của trạng thái $x$.\\\\Để đạt được mục tiêu này, chúng ta xây dựng một hàm chi phí với mục đích kiểm soát theo phương trình bậc hai và trạng thái siêu bậc hai. \\\\
+Đối với hệ động lực bất biến theo thời gian tuyến tính theo thứ tự đầu tiên, chúng ta muốn thiết kế một điều khiển ngược trạng thái bất biến theo thời gian $u(x)$, đặc tính của nó là siêu tuyến tính, tức là $u(x)$ là lũy tiến cho các giá trị lớn hơn của trạng thái $x$.\\\\Để đạt được mục tiêu này, chúng ta xây dựng một hàm chi phí với mục đích kiểm soát theo phương trình bậc hai và trạng thái siêu bậc hai. \\\\
 Ví dụ, chúng ta hãy xem xét vấn đề kiểm soát phản hồi trạng thái tối ưu được mô tả bởi các phương trình sau: \begin{eqnarray}
 	\dot{x}(t) &=& ax(t) + u(t) \nonumber \\ J(u) &=& \int_{0}^{\infty}\Big(q\cosh(x(t))-q+\frac{1}{2}u^2(t)\Big)dt, \nonumber
-\end{eqnarray} trong đó $a$ và $q$ là hằng số dương. \\\\ Sử dụng mở rộng chuỗi $$\cosh(x) = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \frac{x^8}{8!} + \cdots$$ đối với hàm cosin hyperbol, chúng ta có các tương ứng sau với danh pháp được sử dụng trong mục 2.3.2: \begin{eqnarray}
+\end{eqnarray} trong đó $a$ và $q$ là hằng số dương. \\\\ Sử dụng mở rộng chuỗi $$\cosh(x) = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \frac{x^8}{8!} + \cdots$$ đối với hàm cosin hyperbol, chúng ta có các tương ứng sau với danh pháp được sử dụng trong mục 3.3.2: \begin{eqnarray}
 	A&=&a \nonumber\\B&=&1\nonumber\\f(x, u)&\equiv& 0 \nonumber \\ f_u(x, u)&\equiv& 0 \nonumber \\ R&=&1\nonumber\\N&=&0 \nonumber\\Q&=&q\nonumber\\\ell(x, u)&=&q\Big(\frac{x^4}{4!} + \frac{x^6}{6!}+\frac{x^8}{8!} + \cdots\Big) \nonumber\\\ell_u(x, u) &\equiv&0 \nonumber.
 \end{eqnarray}
 \subsubsection{\textbf{1}$^{\text{st}}$Approximation: LQ-Regulator} \begin{eqnarray}
@@ -373,26 +603,38 @@ Từ $$0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)} + \ell^{(3)}$$ chúng ta nhận đư
 	0=T_x^{[8]}A^ox + \sum_{j=2}^{6}T_x^{[9-j]}Bu^{o(j)} + \sum_{j=2}^{7}T_x^{[9-j]}f^{(j)} + \sum_{j=2}^{3}u^{o(j)}Ru^{o(8-j)}+\frac{1}{2}u^{o(4)^T}Ru^{o(4)} + \ell^{(8)} \nonumber \\ T_x^{[8]} = \bigg(\frac{q}{8!} - \Big(\frac{q}{6!}-\frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{1}{4!(a^2+q)}\bigg)\frac{x^7}{\sqrt{a^2+q}} \nonumber \\ u^{o(7)} = -T_x^{[8]} = -\bigg(\frac{q}{8!} - \Big(\frac{q}{6!}-\frac{q^2}{2(4!)^2(a^2+q)}\Big)\frac{1}{4!(a^2+q)}\bigg)\frac{x^7}{\sqrt{a^2+q}} \nonumber
 \end{align}
 \textbf{và như thế ...} \\\\Cuối cùng, chúng ta có được điều khiển phi tuyến, tối ưu gần đúng sau $$u^o(x) = u^{o(1)}(x) + u^{o(3)}(x) + u^{o(5)}(x) + u^{o(7)}(x) + \cdots $$ Về mặt thực tế, nó có thể được xấp xỉ bằng phương trình sau: $$u^o(x) \approx -(a+\sqrt{a^2 + q})x - 
-\frac{qx^3}{4!\sqrt{a^2+q}} - \frac{qx^5}{6!\sqrt{a^2+q}} - \frac{qx^7}{8!\sqrt{a^2+q}}-\cdots$$ Đặc tính của bộ điều khiển xấp xỉ này bị cắt bớt sau bốn thuật ngữ được hiển thị trong Hình 2.3.
+\frac{qx^3}{4!\sqrt{a^2+q}} - \frac{qx^5}{6!\sqrt{a^2+q}} - \frac{qx^7}{8!\sqrt{a^2+q}}-\cdots$$ Đặc tính của bộ điều khiển xấp xỉ này bị cắt bớt sau bốn thuật ngữ được hiển thị trong Hình 3.3.
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=.6]{hinh5.png}
+	\includegraphics[scale=.55]{hinh5.png}
 	\caption{Xấp xỉ điều khiển tối ưu với $a = 3, q = 100$.}
 \end{figure}
 \subsection{Kiểm soát tốc độ LQQ}
 Phương trình chuyển động của vận tốc $v(t)$ của máy bay trong chuyến bay ngang có thể được mô tả bởi $$m\dot{v}(t) = -\frac{1}{2}c_wA_r\rho v^2(t) + F(t) ,$$ Trong đó $F(t)$ là lực đẩy ngang do động cơ phản lực tạo ra, $m$ là khối lượng của máy bay, $c_w$ là hệ số lực cản khí động học, $A_r$ là tiết diện tham chiếu của máy bay và $\rho$ là mật độ của không khí. \\\\Máy bay phải bay với tốc độ không đổi $v_0$. Đối với điều này, lực đẩy danh nghĩa $$F_0 = \frac{1}{2}c_wA_r\rho v_o^2$$ là cần thiết. Chúng ta muốn tăng cường chiến lược điều khiển vòng mở rõ ràng $F(t) \equiv F_0$ bằng điều khiển phản hồi sao cho vận tốc $v(t)$ được kiểm soát chính xác hơn, nếu có bất kỳ sự khác biệt nào xảy ra vì bất kỳ lý do gì. \\\\Giới thiệu biến trạng thái $$x(t) = v(t) - v_0$$ và biến điều khiển phụ hiệu chỉnh $$u(t) = \frac{1}{m}\big(F(t) - F_0\big)$$ các động lực phi tuyến sau đây để thiết kế điều khiển phản hồi thu được: \begin{eqnarray}
 	\dot{x}(t) &=& a_1x(t) + a_2x^2(t) + u(t) \nonumber \\ \text{ với } a_1 &=& -\frac{c_wA_r\rho v_0}{m} \nonumber \\ \text{ và } a_2 &=& - \frac{c_wA_r\rho }{2m} \nonumber
-\end{eqnarray} Đối với thiết kế của bộ điều khiển phản hồi, chúng ta chọn hàm chi phí bậc hai tiêu chuẩn $$J(u) = \frac{1}{2}\int_{0}^{\infty}\big(qx^2(t) + u^2(t)\big)dt.$$ Do đó, chúng ta có được các tương ứng sau với danh pháp được sử dụng trong Chương 2.3.2: \begin{eqnarray}
+\end{eqnarray} Đối với thiết kế của bộ điều khiển phản hồi, chúng ta chọn hàm chi phí bậc hai tiêu chuẩn $$J(u) = \frac{1}{2}\int_{0}^{\infty}\big(qx^2(t) + u^2(t)\big)dt.$$ Do đó, chúng ta có được các tương ứng sau với danh pháp được sử dụng trong phần 2.3.2: \begin{eqnarray}
 	A&=&a_1\nonumber\\B&=&1\nonumber\\f(x, u) &=& a_2x^2 \nonumber \\ f_u(x, y) &\equiv& 0 \nonumber \\ f^{(1)}(x, u) &=& 2a_2x \nonumber \\ f^{(2)}(x, u) &=& 2a_2 \nonumber \\ f^{(3)}(x, u) &=& 0 \nonumber \\ Q&=&q \nonumber \\R&=&1 \nonumber \\\ell(x, u) &\equiv& 0 \nonumber 
 \end{eqnarray}
 \subsubsection{\textbf{1}$^\text{st}$ Approximation: LQ-Regulator} \begin{eqnarray}
 	\dot{x}(t) &=&a_1x + u \nonumber \\ J(u) &=& \int_{0}^{\infty}\Big(\frac{1}{2}qx^2+\frac{1}{2}u^2\Big)dt \nonumber \\ u^{o(1)}&=&-Kx, \nonumber
 \end{eqnarray} với $$K = a_1 + \sqrt{a_1^2+q}$$ là nghiệm dương của phương trình Riccati $$K^2-2a_1K-q=0$$ Kết quả của hệ thống điều khiển tuyến tính được mô tả bởi phương trình vi phân $$\dot{x}(t) = [a_1 - K]x(t) = A^ox(t) = -\sqrt{a_1^2+q}x(t)$$ và có hàm chi phí $$T^{(2)}(x) = \frac{1}{2}Kx^2 = \frac{1}{2}\bigg(a_1 + \sqrt{a_1^2+q}\bigg)x^2$$ với đạo hàm $$T_x^{[2]}(x) = Kx = \bigg(a_1 + \sqrt{a_1^2 + q}\bigg)x$$
 \subsubsection{\textbf{2}$^\text{nd}$ Approximation}
-Từ $$0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)} + \ell^{(3)}$$ chúng ta có $$T_x^{[3]} = \frac{a_1 + \sqrt{a_1^2 + q}}{\sqrt{a_1^2 + q}}a_2x^2.$$ Vì $f_u(x, u) \equiv 0, \ell_u(x,u) \equiv 0, B=1$ và $R=1$, chúng ta thu được kết quả sau đây với mọi $k \geq 2$: $$u^{o(k)} = -T_x^{[k+1]}.$$ Vì vậy, $$u^{o(2)} = -T_x^{[3]} = -\frac{a_1+\sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Vì phương trình chuyển động là bậc hai theo $x$, thuật toán dừng ở đây. Do đó, luật kiểm soát tối ưu xấp xỉ là: $$u(x) = u^{o(1)}(x) + u^{o(2)}(x) = -\Big(a_1 + \sqrt{a_1^2+q} \Big)x - \frac{a_1 + \sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Tính chất của bộ điều khiển xấp xỉ này được hiển thị trong Hình 2.4.
+Từ $$0 = T_x^{[3]}A^ox + T_x^{[2]}f^{(2)} + \ell^{(3)}$$ chúng ta có $$T_x^{[3]} = \frac{a_1 + \sqrt{a_1^2 + q}}{\sqrt{a_1^2 + q}}a_2x^2.$$ Vì $f_u(x, u) \equiv 0, \ell_u(x,u) \equiv 0, B=1$ và $R=1$, chúng ta thu được kết quả sau đây với mọi $k \geq 2$: $$u^{o(k)} = -T_x^{[k+1]}.$$ Vì vậy, $$u^{o(2)} = -T_x^{[3]} = -\frac{a_1+\sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Vì phương trình chuyển động là bậc hai theo $x$, thuật toán dừng ở đây. Do đó, luật kiểm soát tối ưu xấp xỉ là: $$u(x) = u^{o(1)}(x) + u^{o(2)}(x) = -\Big(a_1 + \sqrt{a_1^2+q} \Big)x - \frac{a_1 + \sqrt{a_1^2+q}}{\sqrt{a_1^2+q}}a_2x^2.$$ Tính chất của bộ điều khiển xấp xỉ này được hiển thị trong Hình 3.4.
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=.6]{hinh6ct.png}
+	\includegraphics[scale=.55]{hinh6ct.png}
 	\caption{Tính chất của điều khiển LQQ với $v_0 = 100$ m/s, $q = 0.001, c_w = 0.05, A_r = 0.5$ m$^2$, $\rho=1.3$kg/m$^3, m = 200$ kg.}
 \end{figure}
+
+\chapter*{Kết luận}
+Đồ án đã tập trung nghiên cứu và làm rõ các vấn đề liên quan tới điều khiển ngược trạng thái tối ưu, trong đó nghiên cứu về các nguyên tắc tối ưu, học thuyết Hamilton-Jacobi-Bellman với các luận điểm về lý thuyết HJB, vấn đề điều chỉnh LQ, vấn đề điều khiển tối ưu bất biến theo thời gian với không gian vô hạn,  xây dựng các công thức xấp xỉ điều khiển tối ưu bằng các phương pháp như phương pháp Lukes, điều khiển với đặc tính lũy tiến, kiểm soát tốc độ LQQ, ... \\
+Đồ án cũng mở ra một số hướng phát triển đề tài về điều khiển ngược trạng thái tối ưu, đóng góp chung vào lý thuyết điều khiển tối ưu.
+\begin{thebibliography}{}
+	\bibitem{latex} Hans P.Geering, \textit{Optimal Control with Engineering Applications}, Springer, 2006.
+	\bibitem{latex} M. Athans, P.L. Falb, \textit{Optimal Control}, McGraw-Hill, New York, NY, 1966.
+	\bibitem{latex} Nguyễn Thị Bạch Kim, \textit{Giáo trình: Các phương pháp tối ưu, lý thuyết và thuật toán}, Nhà xuất bản Bách Khoa Hà Nội, 2014.
+	
+
+	
+\end{thebibliography}
 \end{document} 
